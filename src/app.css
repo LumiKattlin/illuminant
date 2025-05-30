@@ -1,3 +1,38 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+:root {
+    --color-bg: rgb(42, 7, 111);
+    --color-bg-2: rgb(113, 38, 236);
+    --color-bg-3: rgb(95, 21, 137);
+    --color-bg-highlight: rgb(205, 79, 225);
+    --color-text: rgb(233, 201, 250);
+}
+
+::selection {
+    background-color: var(--color-bg-highlight);
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+h2 {
+    font-weight: bold;
+    font-size: xx-large;
+
+    margin-top: 2cap;
+    margin-bottom: 0.5em;
+}
+
+p {
+    padding: 0.25em;
+    font-size: large;
+    text-wrap-style: balance;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
