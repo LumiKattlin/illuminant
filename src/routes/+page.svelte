@@ -5,7 +5,10 @@
 		BreaKKr: '/assets/Illuminant/1000005142-removebg-preview.png',
 		'Kandy Choppe': '/assets/Illuminant/Kandy_Logo_Text.png',
 		'Son of The Mob': '/assets/Illuminant/SOTM_transparent.png',
-		'Lizzy Choppe': '/assets/Illuminant/Lizzy_Signature_Blank.png'
+		'Lizzy Choppe': '/assets/Illuminant/Lizzy_Signature_Blank.png',
+		Ne10: '/assets/Illuminant/Ne10_Logo_White.png',
+		SpockAndStep: '/assets/Illuminant/SpockAndStep2_Full1.png',
+		'FRVME PRFCT': '/assets/Illuminant/FPLOGOWHITE.png'
 	};
 </script>
 
@@ -56,16 +59,47 @@
 		</div>
 		<h2 id="contact">Contact</h2>
 
-		<p>
-			Contact us at <i>contact@illuminantrecs.com</i>
-		</p>
+		<div class="contact-section">
+			<div>
+				<p>
+					Email us at <i>contact@illuminantrecs.com</i>
+				</p>
 
-		<div>
-			<a class="link-button" href="mailto:contact@illuminantrecs.com">
-				<span class="material-symbols-outlined"> mail </span>
-				Send mail
-			</a>
-		</div>
+				<div>
+					<a class="link-button" href="mailto:contact@illuminantrecs.com">
+						<span class="material-symbols-outlined"> mail </span>
+						Send mail
+					</a>
+				</div>
+			</div>
+
+			<div class="contact-list">
+				<a href="https://soundcloud.com/illuminantrecords">
+					<img
+						class="contact-element"
+						src="/assets/soundcloud.png"
+						alt="soundcloud"
+						title="soundcloud"
+					/>
+				</a>
+				<a href="https://bsky.app/profile/illuminantrecords.bsky.social">
+					<img
+						class="contact-element"
+						src="/assets/bluesky-icon.png"
+						alt="bluesky"
+						title="bluesky"
+					/>
+				</a>
+				<a href="https://www.instagram.com/illuminantrecordsus/">
+					<img
+						class="contact-element"
+						src="/assets/ig-instagram-icon.png"
+						alt="instagram"
+						title="instagram"
+					/>
+				</a>
+			</div>
+ 		</div>
 	</div>
 </div>
 
@@ -86,6 +120,7 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(auto-fill, 140px);
+		align-content: center;
 	}
 
 	.artist-entry {
@@ -112,5 +147,22 @@
 
 	.link-button:hover {
 		background-color: var(--color-bg-3);
+	}
+
+	.contact-list {
+		display: flex;
+		gap: 2em;
+		align-items: center;
+		margin: 0.5em;
+	}
+
+	.contact-element {
+		height: auto;
+		width: 60px;
+	}
+
+	.contact-section {
+		display: flex;
+		gap: 4em;
 	}
 </style>
