@@ -99,7 +99,7 @@
 					/>
 				</a>
 			</div>
- 		</div>
+		</div>
 	</div>
 </div>
 
@@ -119,7 +119,7 @@
 	.artist-list {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(auto-fill, 140px);
+		grid-template-rows: repeat(auto-fill, 150px);
 		align-content: center;
 	}
 
@@ -129,6 +129,12 @@
 		align-items: center;
 		width: 150px;
 		height: 150px;
+	}
+
+	.artist-entry:last-child {
+		grid-column: 2;
+		margin-left: 125px;
+		margin-right: -125px;
 	}
 
 	.link-button {
