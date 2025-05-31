@@ -121,6 +121,11 @@
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(auto-fill, 150px);
 		align-content: center;
+		@media (max-width: 800px) {
+			grid-template-columns: repeat(2, 1fr);
+			margin-left: 9vw;
+			grid-template-rows: repeat(auto-fill, 150px);
+		}
 	}
 
 	.artist-entry {
@@ -135,6 +140,11 @@
 		grid-column: 2;
 		margin-left: 125px;
 		margin-right: -125px;
+		@media (max-width: 800px) {
+			grid-column: 1;
+			margin-left: 100px;
+			margin-right: -100px;
+		}
 	}
 
 	.link-button {
@@ -149,6 +159,12 @@
 		padding-right: 10px;
 		transition: 0.2s;
 		margin: 0.25em;
+
+		@media (max-width: 800px) {
+			margin-left: 0.5em;
+			height: 48px;
+			align-items: center;
+		}
 	}
 
 	.link-button:hover {
@@ -160,6 +176,9 @@
 		gap: 2em;
 		align-items: center;
 		margin: 0.5em;
+		@media (max-width: 800px) {
+			gap: 1em;
+		}
 	}
 
 	.contact-element {
@@ -170,5 +189,9 @@
 	.contact-section {
 		display: flex;
 		gap: 4em;
+
+		@media (max-width: 800px) {
+			flex-direction: column;
+		}
 	}
 </style>

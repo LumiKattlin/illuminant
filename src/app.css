@@ -25,12 +25,22 @@ h2 {
 
     margin-top: 2cap;
     margin-bottom: 0.5em;
+
+    @media (max-width: 800px) {
+        padding-left: 0.25em;
+    }
 }
 
 p {
     padding: 0.25em;
     font-size: large;
     text-wrap-style: balance;
+    max-width: calc(100vw - 0.5em);
+
+    @media (max-width: 800px) {
+        font-size: medium;
+        padding: 0.5em;
+    }
 }
 
 .material-symbols-outlined {
