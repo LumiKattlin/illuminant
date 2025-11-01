@@ -1,6 +1,24 @@
 <script lang="ts">
 	import Blog from '$lib/components/blog.svelte';
 	import { markdownText, type BlogPost } from '$lib/blogTypes';
+	import { getAuth, getSessionHeaders } from '$lib/auth/blogAuthClient';
+
+	async function deletePost(post: BlogPost) {
+		if (!confirm(`Really delete the post ${post.title}?`)) {
+			return;
+		}
+
+		const response = await fetch(`/blog/delete?id=${post.identifier}`, {
+			headers: getSessionHeaders(getAuth()!),
+			method: "DELETE"
+		});
+		const responseJson = await response.json() as boolean
+		
+		if (!responseJson) {
+			alert("Failed to delete post!");
+		}
+		window.location.reload();
+	}
 </script>
 
 <h1>Edit Blog</h1>
@@ -27,13 +45,11 @@
 		<div class="blogEntry shadow">
 			<div class="blog-entry-heading">
 				<h3>{post.title}</h3>
-				<button
-					title="Copy post link to clipboard"
+				<a
+					title="View post"
+					href="/blog/read?article={post.identifier}"
 					class="material-symbols-outlined hover small-button"
 				>
-					link
-				</button>
-				<a title="View post" href="/blog/read?" class="material-symbols-outlined hover small-button">
 					open_in_new
 				</a>
 				<a
@@ -43,7 +59,11 @@
 				>
 					edit
 				</a>
-				<button title="Delete post" class="material-symbols-outlined hover small-button">
+				<button
+					title="Delete post"
+					class="material-symbols-outlined hover small-button"
+					onclick={async () => await deletePost(post)}
+				>
 					delete
 				</button>
 			</div>

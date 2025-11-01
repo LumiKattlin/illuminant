@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { hasBlogAuth } from '$lib/auth/blogAuthClient';
-	import type { DraftData } from '$lib/blogTypes';
+	import { getSessionHeaders, getAuth } from '$lib/auth/blogAuthClient';
+	import type { DraftData, BlogPost } from '$lib/blogTypes';
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
 
 	let title = $state<string>('');
 	let author = $state<string>('');
@@ -24,8 +25,9 @@
 	});
 
 	async function saveDraft() {
-		let result = await fetch('/blog/edit/drafts', {
+		const result = await fetch('/blog/edit/drafts', {
 			method: 'POST',
+			headers: getSessionHeaders(getAuth()!),
 			body: JSON.stringify({
 				title: title,
 				author: author,
@@ -34,13 +36,44 @@
 			})
 		});
 
-		postId = (await result.json()).identifier;
+		const resultJson = await result.json();
+
+		console.log('Created draft', resultJson);
+
+		postId = resultJson.identifier;
+	}
+
+	async function publishPost() {
+		if (!confirm('Really publish this post?')) {
+			return;
+		}
+
+		const result = await fetch('/blog', {
+			method: 'POST',
+			headers: getSessionHeaders(getAuth()!),
+			body: JSON.stringify({
+				title: title,
+				author: author,
+				content: content,
+				identifier: uuidv4(),
+				publishDate: new Date(Date.now())
+			} as BlogPost)
+		});
+
+		const resultJson = await result.json();
+		
+		console.log('Created post', resultJson);
+		window.location.href = '/blog'
 	}
 
 	async function getDraft() {
-		let result = await fetch(`/blog/edit/drafts?id=${postId}`);
+		let result = await fetch(`/blog/edit/drafts?id=${postId}`, {
+			headers: getSessionHeaders(getAuth()!),
+		});
 
 		let resultData = (await result.json()) as DraftData;
+
+		console.log(resultData);
 
 		({ title, author, content } = resultData);
 	}
@@ -70,13 +103,13 @@
 					<span class="material-symbols-outlined"> save </span>
 					Save draft
 				</button>
-				<button type="submit" class="submit-button" title="Publish article">
+				<button type="submit" class="submit-button" title="Publish article" onclick={publishPost}>
 					<span class="material-symbols-outlined"> check </span>
 					Publish
 				</button>
 			</div>
 		</div>
-		<div class="metadata-control">
+		<div class="metadata-control metadata-control-last">
 			<h4>Help</h4>
 			<a href="https://www.markdownguide.org/basic-syntax/" target="_blank" class="submit-button">
 				<span class="material-symbols-outlined"> open_in_new </span>
@@ -126,10 +159,15 @@
 
 	.metadata-control {
 		height: 80px;
+		margin-right: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
 		justify-content: center;
+	}
+
+	.metadata-control-last {
+		margin: 0;
 	}
 
 	.submit-button {
@@ -169,7 +207,7 @@
 
 	.container {
 		width: 100%;
-		height: 100%;
+		height: calc(100% - 48px);
 
 		margin: 10px;
 		padding: 10px;

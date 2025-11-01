@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getSessionHeaders, getAuth } from '$lib/auth/blogAuthClient';
 	import { markdownText, type DraftData } from '$lib/blogTypes';
 	import { onMount } from 'svelte';
 
@@ -7,11 +8,18 @@
 
 	onMount(async () => {
 		let loadPosts = async (): Promise<DraftData[]> => {
-			return (await fetch('/blog/edit/drafts')).json();
+			return (await fetch('/blog/edit/drafts', {
+				headers: getSessionHeaders(getAuth()!),
+			})).json();
 		};
 
 		postsPromise = loadPosts();
 	});
+
+	async function deleteDraft(draft: DraftData) {
+		let posts = await postsPromise;
+		postsPromise = Promise.resolve(posts?.filter((p) => p != draft)) as Promise<DraftData[]>;
+	}
 </script>
 
 {#await postsPromise}
@@ -26,16 +34,23 @@
 		{#each searchQuery ? posts!.filter((p) => p.title
 						.toLowerCase()
 						.includes(searchQuery.toLowerCase())) : posts as post}
-			<a href="/blog/edit/post?draft={post.identifier}" class="post-button hover shadow">
-				<h3>{post.title ? post.title : '[No name]'}</h3>
+			<div class="post-button hover shadow">
+				<a href="/blog/edit/post?draft={post.identifier}">
+					<h3>{post.title ? post.title : '[No name]'}</h3>
 
-				<p>
-					{markdownText(post.content)}
-				</p>
+					<p>
+						{markdownText(post.content)}
+					</p>
+				</a>
 				<div class="post-button-controls">
-					<button class="small-button hover material-symbols-outlined"> delete </button>
+					<button
+						class="small-button hover material-symbols-outlined"
+						onclick={async () => await deleteDraft(post)}
+					>
+						delete
+					</button>
 				</div>
-			</a>
+			</div>
 		{/each}
 
 		<div class="new-button shadow">
@@ -51,7 +66,7 @@
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-        justify-content: center;
+		justify-content: center;
 		grid-template-columns: 10fr 10fr 10fr;
 		gap: 10px;
 	}
@@ -66,14 +81,14 @@
 	.new-button {
 		width: 320px;
 		height: 150px;
-        display: flex;
-        border-radius: 5px;
-        border: 2px solid var(--color-bg-2);
-        justify-content: center;
-        align-items: center;
+		display: flex;
+		border-radius: 5px;
+		border: 2px solid var(--color-bg-2);
+		justify-content: center;
+		align-items: center;
 	}
 
-	.post-button > p {
+	.post-button > a > p {
 		height: 65px;
 		overflow-y: hidden;
 	}

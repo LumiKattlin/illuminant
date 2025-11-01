@@ -6,7 +6,9 @@
 		postComponent: Snippet<[BlogPost]>;
 	} = $props();
 
-	let blogEntriesPromise = $state<Promise<BlogPost>>();
+	let searchQuery = $state('');
+
+	let blogEntriesPromise = $state<Promise<BlogPost[]>>();
 	async function loadBlogPosts() {
 		let response = await fetch('/blog', {
 			headers: {
@@ -27,7 +29,7 @@
 </script>
 
 <div class="list-controls">
-	<input type="search" class="shadow" placeholder="Search..." />
+	<input type="search" bind:value={searchQuery} class="shadow" placeholder="Search..." />
 	<select class="hover shadow">
 		<option value="latest">Latest</option>
 		<option value="name">Name A...Z</option>
@@ -38,8 +40,10 @@
 	{#await blogEntriesPromise}
 		Loading
 	{:then blogEntries}
-		{#each blogEntries as any as entry}
-			{@render props.postComponent(entry as BlogPost)}
+		{#each blogEntries as entry}
+			{#if !searchQuery || entry.title.indexOf(searchQuery) != -1}
+				{@render props.postComponent(entry as BlogPost)}
+			{/if}
 		{/each}
 	{:catch err}
 		<div class="error shadow">
