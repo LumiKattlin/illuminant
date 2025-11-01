@@ -12,93 +12,89 @@
 	};
 </script>
 
-<div class="container">
-	<div></div>
+<svelte:head>
+	<title>Illuminant</title>
+</svelte:head>
+
+<div>
+	<h1 id="about">About us</h1>
+	<p>
+		Illuminant is an independent EDM label built to spotlight the raw energy, emotion, and
+		innovation pulsing through the underground. Founded with a mission to break boundaries and
+		uplift emerging talent, we are here to illuminate the underground — one track, one artist, one
+		moment at a time.
+	</p>
+	<p>
+		In a scene often dominated by the same sounds and faces, we champion the outsiders — the
+		beatmakers, producers, and DJs crafting their own path. From deep warehouse grooves and hypnotic
+		techno to experimental bass and euphoric melodic anthems, we thrive on diversity and edge. If it
+		hits hard and speaks truth, it belongs here.
+	</p>
+	<p>
+		Our community is global, but our roots are local. We believe in building platforms that empower
+		artists to grow authentically — through cutting-edge releases, immersive events, and
+		collaborative spaces where creativity runs wild.
+	</p>
+	<p>
+		Illuminant isn’t just a label. It’s a movement. A mindset. A reminder that even in the darkest
+		corners of the dance floor, there’s always a light worth chasing.
+	</p>
+
+	<h1 id="submission">Demo Submissions</h1>
 	<div>
-		<h2 id="about">About us</h2>
-		<p>
-			Illuminant is an independent EDM label built to spotlight the raw energy, emotion, and
-			innovation pulsing through the underground. Founded with a mission to break boundaries and
-			uplift emerging talent, we are here to illuminate the underground — one track, one artist, one
-			moment at a time.
-		</p>
-		<p>
-			In a scene often dominated by the same sounds and faces, we champion the outsiders — the
-			beatmakers, producers, and DJs crafting their own path. From deep warehouse grooves and
-			hypnotic techno to experimental bass and euphoric melodic anthems, we thrive on diversity and
-			edge. If it hits hard and speaks truth, it belongs here.
-		</p>
-		<p>
-			Our community is global, but our roots are local. We believe in building platforms that
-			empower artists to grow authentically — through cutting-edge releases, immersive events, and
-			collaborative spaces where creativity runs wild.
-		</p>
-		<p>
-			Illuminant isn’t just a label. It’s a movement. A mindset. A reminder that even in the darkest
-			corners of the dance floor, there’s always a light worth chasing.
-		</p>
+		<a
+			class="link-button"
+			href="https://docs.google.com/forms/d/1tudkB2tI8dMn7PyAMJy1iu4pPwNJKT7chb507lqlz_k/viewform?ts=6791b5c9&edit_requested=true&pli=1"
+			target="_blank"
+		>
+			<span class="material-symbols-outlined"> open_in_new </span>
+			Submission form
+		</a>
+	</div>
+	<h1 id="artists">Artists</h1>
+	<div class="artist-list">
+		{#each Object.entries(artists) as [name, icon]}
+			<div class="artist-entry">
+				<img class="artist-logo" src={icon} alt={name} title={name} />
+			</div>
+		{/each}
+	</div>
+	<h1 id="contact">Contact</h1>
 
-		<h2 id="submission">Demo Submissions</h2>
+	<div class="contact-section">
 		<div>
-			<a
-				class="link-button"
-				href="https://docs.google.com/forms/d/1tudkB2tI8dMn7PyAMJy1iu4pPwNJKT7chb507lqlz_k/viewform?ts=6791b5c9&edit_requested=true&pli=1"
-				target="_blank"
-			>
-				<span class="material-symbols-outlined"> open_in_new </span>
-				Submission form
-			</a>
-		</div>
-		<h2 id="artists">Artists</h2>
-		<div class="artist-list">
-			{#each Object.entries(artists) as [name, icon]}
-				<div class="artist-entry">
-					<img class="artist-logo" src={icon} alt={name} title={name} />
-				</div>
-			{/each}
-		</div>
-		<h2 id="contact">Contact</h2>
+			<p>
+				Email us at <i>contact@illuminantrecs.com</i>
+			</p>
 
-		<div class="contact-section">
 			<div>
-				<p>
-					Email us at <i>contact@illuminantrecs.com</i>
-				</p>
-
-				<div>
-					<a class="link-button" href="mailto:contact@illuminantrecs.com">
-						<span class="material-symbols-outlined"> mail </span>
-						Send mail
-					</a>
-				</div>
-			</div>
-
-			<div class="contact-list">
-				<a href="https://soundcloud.com/illuminantrecords">
-					<img
-						class="contact-element"
-						src="/assets/soundcloud.png"
-						alt="soundcloud"
-						title="soundcloud"
-					/>
-				</a>
-				<a href="https://bsky.app/profile/illuminantrecords.bsky.social">
-					<img
-						class="contact-element"
-						src="/assets/bluesky-icon.png"
-						alt="bluesky"
-						title="bluesky"
-					/>
-				</a>
-				<a href="https://www.instagram.com/illuminantrecordsus/">
-					<img
-						class="contact-element"
-						src="/assets/ig-instagram-icon.png"
-						alt="instagram"
-						title="instagram"
-					/>
+				<a class="link-button" href="mailto:contact@illuminantrecs.com">
+					<span class="material-symbols-outlined"> mail </span>
+					Send mail
 				</a>
 			</div>
+		</div>
+
+		<div class="contact-list">
+			<a href="https://soundcloud.com/illuminantrecords">
+				<img
+					class="contact-element"
+					src="/assets/soundcloud.png"
+					alt="soundcloud"
+					title="soundcloud"
+				/>
+			</a>
+			<a href="https://bsky.app/profile/illuminantrecords.bsky.social">
+				<img class="contact-element" src="/assets/bluesky-icon.png" alt="bluesky" title="bluesky" />
+			</a>
+			<a href="https://www.instagram.com/illuminantrecordsus/">
+				<img
+					class="contact-element"
+					src="/assets/ig-instagram-icon.png"
+					alt="instagram"
+					title="instagram"
+				/>
+			</a>
 		</div>
 	</div>
 </div>
@@ -109,23 +105,12 @@
 		width: 150px;
 	}
 
-	.container {
-		width: min(100%, 1000px);
-		display: flex;
-		margin-bottom: 8em;
-		justify-items: center;
-	}
-
 	.artist-list {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(auto-fill, 150px);
-		align-content: center;
-		@media (max-width: 800px) {
-			grid-template-columns: repeat(2, 1fr);
-			margin-left: 9vw;
-			grid-template-rows: repeat(auto-fill, 150px);
-		}
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 30px;
 	}
 
 	.artist-entry {
@@ -134,41 +119,6 @@
 		align-items: center;
 		width: 150px;
 		height: 150px;
-	}
-
-	.artist-entry:last-child {
-		grid-column: 2;
-		margin-left: 125px;
-		margin-right: -125px;
-		@media (max-width: 800px) {
-			grid-column: 1;
-			margin-left: 100px;
-			margin-right: -100px;
-		}
-	}
-
-	.link-button {
-		background-color: var(--color-bg-2);
-		border-radius: 5px;
-		padding: 5px;
-		height: 32px;
-		display: inline-flex;
-		justify-items: center;
-		gap: 0.5em;
-		font-weight: bold;
-		padding-right: 10px;
-		transition: 0.2s;
-		margin: 0.25em;
-
-		@media (max-width: 800px) {
-			margin-left: 0.5em;
-			height: 48px;
-			align-items: center;
-		}
-	}
-
-	.link-button:hover {
-		background-color: var(--color-bg-3);
 	}
 
 	.contact-list {
@@ -189,6 +139,7 @@
 	.contact-section {
 		display: flex;
 		gap: 4em;
+		margin-bottom: 8em;
 
 		@media (max-width: 800px) {
 			flex-direction: column;
