@@ -1,6 +1,6 @@
 import type { DraftData } from '$lib/blogTypes'
 import { checkRequest } from '$lib/server/auth';
-import { getDraft, getDrafts, saveDraft } from '$lib/server/drafts.js'
+import { deleteDraft, getDraft, getDrafts, saveDraft } from '$lib/server/drafts.js'
 import { error, json } from '@sveltejs/kit'
 
 export async function GET(event) {
@@ -33,8 +33,21 @@ export async function POST(event): Promise<Response> {
     if (!draft) {
         return error(400)
     }
-
     draft = await saveDraft(draft)
 
     return json(draft)
+}
+
+export async function DELETE(event): Promise<Response> { 
+    if (!checkRequest(event)) {
+        return error(401);
+    }
+    
+    let draft = event.url.searchParams.get("id") ?? "";
+    if (!draft) { 
+        return error(400)
+    }
+    await deleteDraft(draft)
+
+    return json({});
 }

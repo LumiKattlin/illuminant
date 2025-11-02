@@ -7,6 +7,7 @@
 	} = $props();
 
 	let searchQuery = $state('');
+	let sortMode = $state('latest');
 
 	let blogEntriesPromise = $state<Promise<BlogPost[]>>();
 	async function loadBlogPosts() {
@@ -30,7 +31,7 @@
 
 <div class="list-controls">
 	<input type="search" bind:value={searchQuery} class="shadow" placeholder="Search..." />
-	<select class="hover shadow">
+	<select bind:value={sortMode} class="hover shadow">
 		<option value="latest">Latest</option>
 		<option value="name">Name A...Z</option>
 	</select>
@@ -40,7 +41,13 @@
 	{#await blogEntriesPromise}
 		Loading
 	{:then blogEntries}
-		{#each blogEntries as entry}
+		{#each blogEntries?.sort((a, b) => {
+			if (sortMode == 'latest') {
+				return a.publishDate < b.publishDate ? 1 : -1;
+			} else {
+				return a.title > b.title ? 1 : -1;
+			}
+		}) as entry}
 			{#if !searchQuery || entry.title.indexOf(searchQuery) != -1}
 				{@render props.postComponent(entry as BlogPost)}
 			{/if}

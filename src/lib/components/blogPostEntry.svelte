@@ -10,7 +10,7 @@
 		<h3>{entry.title}</h3>
 		<span class="material-symbols-outlined"> open_in_new </span>
 	</div>
-	<h4>By {entry.author} &mdash; {new Date(Date.now()).toDateString()}</h4>
+	<h4>By {entry.author} &mdash; {new Date(entry.publishDate).toDateString()}</h4>
 
 	<p>
 		{markdownText(

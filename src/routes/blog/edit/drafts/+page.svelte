@@ -6,19 +6,29 @@
 	let postsPromise = $state<Promise<DraftData[]>>();
 	let searchQuery = $state('');
 
-	onMount(async () => {
+	function loadPosts() {
 		let loadPosts = async (): Promise<DraftData[]> => {
-			return (await fetch('/blog/edit/drafts', {
-				headers: getSessionHeaders(getAuth()!),
-			})).json();
+			return (
+				await fetch('/blog/edit/drafts', {
+					headers: getSessionHeaders(getAuth()!)
+				})
+			).json();
 		};
 
 		postsPromise = loadPosts();
-	});
+	}
+
+	onMount(loadPosts);
 
 	async function deleteDraft(draft: DraftData) {
-		let posts = await postsPromise;
-		postsPromise = Promise.resolve(posts?.filter((p) => p != draft)) as Promise<DraftData[]>;
+		const result = (
+			await fetch(`/blog/edit/drafts?id=${draft.identifier}`, {
+				headers: getSessionHeaders(getAuth()!),
+				method: 'DELETE'
+			})
+		).json();
+
+		loadPosts();
 	}
 </script>
 

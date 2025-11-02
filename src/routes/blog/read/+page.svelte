@@ -45,7 +45,7 @@
 	<h1>
 		<a href="/blog">Illuminant Blog</a>&nbsp;&gt;&nbsp;{article?.title}
 	</h1>
-	<h4>By {article?.author} &mdash; {new Date(Date.now()).toDateString()}</h4>
+	<h4>By {article?.author} &mdash; {new Date(article?.publishDate ?? 0).toDateString()}</h4>
 	<hr />
 	<div>{@html marked(article?.content ?? '')}</div>
 {:catch err}

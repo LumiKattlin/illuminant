@@ -1,8 +1,8 @@
-import type { BlogPost } from '$lib/blogTypes';
-import { type Post } from '$lib/server/prisma/client';
+import type { BlogPost } from "$lib/blogTypes";
+import { type Post } from "$lib/server/prisma/client";
 
-import { getPrismaClient } from './prisma';
-
+import { getPrismaClient } from "./prisma";
+import { v4 as uuidv4 } from "uuid";
 export async function getBlogPosts(): Promise<BlogPost[]> {
 	let client = await getPrismaClient();
 
@@ -20,8 +20,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 export async function getBlogPost(name: string): Promise<BlogPost | undefined> {
 	let client = await getPrismaClient();
 
-	let found =
-		(await client.post.findFirst({ where: { id: name } })) as | Post | undefined;
+	let found = (await client.post.findFirst({ where: { id: name } })) as
+		| Post
+		| undefined;
 
 	if (!found) {
 		return undefined;
@@ -36,9 +37,16 @@ export async function getBlogPost(name: string): Promise<BlogPost | undefined> {
 	} as BlogPost;
 }
 
-export async function saveBlogPost(data: BlogPost): Promise<void> {
+export async function saveBlogPost(data: BlogPost): Promise<BlogPost> {
 	const client = await getPrismaClient();
-	console.log('saving blog post', data);
+	if (data.identifier) {
+		await updateBlogPost(data);
+		return data;
+	}
+
+	data.identifier = uuidv4();
+
+	console.log("saving blog post", data);
 	await client.post.create({
 		data: {
 			id: data.identifier,
@@ -46,21 +54,37 @@ export async function saveBlogPost(data: BlogPost): Promise<void> {
 			content: data.content,
 			author: data.author,
 			createdAt: data.publishDate,
-		}
+		},
 	});
+
+	return data;
 }
 export async function deleteBlogPost(identifier: string): Promise<boolean> {
 	const client = await getPrismaClient();
-	console.log('deleting blog post', identifier);
+	console.log("deleting blog post", identifier);
 	try {
 		await client.post.delete({
 			where: {
 				id: identifier,
-			}
+			},
 		});
 		return true;
-	}
-	catch (error) {
+	} catch (error) {
 		return false;
 	}
+}
+
+export async function updateBlogPost(data: BlogPost): Promise<void> {
+	const client = await getPrismaClient();
+	console.log("updating blog post", data);
+	await client.post.update({
+		where: {
+			id: data.identifier,
+		},
+		data: {
+			title: data.title,
+			content: data.content,
+			author: data.author,
+		},
+	});
 }

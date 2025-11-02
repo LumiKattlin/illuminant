@@ -9,6 +9,7 @@
 	let title = $state<string>('');
 	let author = $state<string>('');
 	let content = $state<string>('');
+	let draftId = $state<string>('');
 	let postId = $state<string>('');
 
 	onMount(async () => {
@@ -17,10 +18,14 @@
 		// 	event.returnValue = '';
 		// });
 
-		postId = page.url.searchParams.get('draft') ?? '';
+		draftId = page.url.searchParams.get('draft') ?? '';
+		postId = page.url.searchParams.get('post') ?? '';
 
-		if (postId) {
+		if (draftId) {
 			getDraft();
+		}
+		if (postId) {
+			getPost();
 		}
 	});
 
@@ -32,7 +37,7 @@
 				title: title,
 				author: author,
 				content: content,
-				identifier: postId
+				identifier: draftId
 			})
 		});
 
@@ -40,7 +45,7 @@
 
 		console.log('Created draft', resultJson);
 
-		postId = resultJson.identifier;
+		draftId = resultJson.identifier;
 	}
 
 	async function publishPost() {
@@ -55,7 +60,7 @@
 				title: title,
 				author: author,
 				content: content,
-				identifier: uuidv4(),
+				identifier: postId ?? "",
 				publishDate: new Date(Date.now())
 			} as BlogPost)
 		});
@@ -63,13 +68,21 @@
 		const resultJson = await result.json();
 		
 		console.log('Created post', resultJson);
-		window.location.href = '/blog'
+		window.location.href = '/blog';
 	}
 
 	async function getDraft() {
-		let result = await fetch(`/blog/edit/drafts?id=${postId}`, {
+		let result = await fetch(`/blog/edit/drafts?id=${draftId}`, {
 			headers: getSessionHeaders(getAuth()!),
 		});
+
+		let resultData = (await result.json()) as DraftData;
+
+		({ title, author, content } = resultData);
+	}
+	
+	async function getPost() {
+		let result = await fetch(`/blog/read?article=${postId}`);
 
 		let resultData = (await result.json()) as DraftData;
 
@@ -77,10 +90,25 @@
 
 		({ title, author, content } = resultData);
 	}
+
 </script>
 
 <div class="container shadow">
-	<h3>Create new blog article &mdash; {postId}</h3>
+	<h3>
+		Edit blog article &mdash; {title ?? ""}
+
+		{#if postId}
+		<a class="published-tag" href="/blog/read?article={postId}">
+			Published
+		</a>
+		{/if}
+		{#if draftId}
+		<span class="published-tag">
+			Draft
+		</span>
+		{/if}
+
+	</h3>
 
 	<div class="metadata-controls">
 		<div class="metadata-control">
@@ -188,6 +216,18 @@
 
 	.submit-button:hover {
 		background-color: var(--color-bg-3);
+	}
+
+	.published-tag {
+		font-size: medium;
+		font-weight: normal;
+		font-style: italic;
+		background-color: var(--color-bg-highlight);
+		text-align: center;
+		margin-left: 10px;
+		margin-right: 10px;
+		border-radius: 10px;
+		padding: 3px;
 	}
 
 	input {

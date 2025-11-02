@@ -1,5 +1,6 @@
 import type { DraftData } from "$lib/blogTypes";
 import { type Draft } from "$lib/server/prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
 import { getPrismaClient } from "./prisma";
 
@@ -38,11 +39,18 @@ export async function getDraft(
 }
 
 export async function saveDraft(data: DraftData): Promise<DraftData> {
+    if (data.identifier) {
+        updateDraft(data);
+		return data;
+    }
+    
+	data.identifier = `draft-${uuidv4()}`;
+
     const client = await getPrismaClient();
     console.log("saving draft", data);
     await client.draft.create({
         data: {
-            id: data.identifier ?? `draft-${await client.draft.count()}`,
+            id: data.identifier,
             title: data.title,
             content: data.content,
             author: data.author,
@@ -65,4 +73,18 @@ export async function deleteDraft(identifier: string): Promise<boolean> {
     } catch (error) {
         return false;
     }
+}
+export async function updateDraft(data: DraftData): Promise<void> {
+    const client = await getPrismaClient();
+
+    await client.draft.update({
+        where: {
+            id: data.identifier,
+        },
+        data: {
+            title: data.title,
+            content: data.content,
+            author: data.author,
+        },
+    });
 }

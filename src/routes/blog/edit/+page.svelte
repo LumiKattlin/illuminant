@@ -54,7 +54,7 @@
 				</a>
 				<a
 					title="Edit post"
-					href="/blog/edit/post?existing=true&post={post.identifier}"
+					href="/blog/edit/post?post={post.identifier}"
 					class="material-symbols-outlined hover small-button"
 				>
 					edit
