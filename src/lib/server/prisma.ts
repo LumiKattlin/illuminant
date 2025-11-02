@@ -6,9 +6,7 @@ export async function getPrismaClient() {
     if (!_client) {
         const databaseFile = import.meta.env.DEV ? "file:./dev.db" : "file:./prod.db";
         
-        process.env.DB_URL = databaseFile
-
-        console.log("Using db:", databaseFile)
+        console.log("Using db:", databaseFile);
 
         _client = new PrismaClient({
             datasources: {
