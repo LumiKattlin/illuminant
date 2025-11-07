@@ -954,6 +954,7 @@ export type DraftCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * The data used to create many Drafts.
    */
   data: Prisma.DraftCreateManyInput | Prisma.DraftCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -972,6 +973,7 @@ export type DraftCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Drafts.
    */
   data: Prisma.DraftCreateManyInput | Prisma.DraftCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

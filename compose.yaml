@@ -1,0 +1,32 @@
+services:
+  spooky:
+    image: spooky
+    env_file:
+      - env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        ORIGIN: ${ORIGIN}
+    environment:
+      NODE_ENV: production
+      BLOG_USERNAME: ${BLOG_USERNAME}
+      BLOG_PASSWORD: ${BLOG_PASSWORD}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
+    ports:
+      - 3000:3000
+  postgres:
+    image: postgres:17
+    env_file:
+      - .env
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} 
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data 
+    restart: always 
+    container_name: illuminant_postgres

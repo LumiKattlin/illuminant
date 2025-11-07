@@ -4,18 +4,9 @@ let _client: PrismaClient | undefined = undefined;
 
 export async function getPrismaClient() {
     if (!_client) {
-        const databaseFile = import.meta.env.DEV ? "file:./dev.db" : "file:./prod.db";
-        
-        console.log("Using db:", databaseFile);
-
-        _client = new PrismaClient({
-            datasources: {
-                db: {
-                    url: databaseFile
-                }
-            }
-        });
+        _client = new PrismaClient();
         await _client.$connect();
     }
     return _client;
 }
+

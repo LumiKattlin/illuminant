@@ -8,8 +8,9 @@ type AuthRequest = {
 }
 
 export async function POST(event) {
-    const _username = import.meta.env.VITE_BLOG_USERNAME;
-    const _password = import.meta.env.VITE_BLOG_PASSWORD;
+    const _username = process.env.BLOG_USERNAME;
+    const _password = process.env.BLOG_PASSWORD;
+
     const data = await event.request.json() as AuthRequest;
 
     if (data.username != _username || data.password != _password) {

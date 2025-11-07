@@ -1,5 +1,6 @@
 import type { BlogPost } from "$lib/blogTypes";
 import { type Post } from "$lib/server/prisma/client";
+import { EmbedBuilder, WebhookClient } from "discord.js";
 
 import { getPrismaClient } from "./prisma";
 import { v4 as uuidv4 } from "uuid";
@@ -56,7 +57,14 @@ export async function saveBlogPost(data: BlogPost): Promise<BlogPost> {
 			createdAt: data.publishDate,
 		},
 	});
-
+	const webhookClient = new WebhookClient({ url: process.env.DISCORD_WEBHOOK_URL ?? "" }); 
+	const embed = new EmbedBuilder().setTitle('New blog update!').setColor(0x00ffff);
+	webhookClient.send({
+	content: 'New blog post published: ' + data.title + '\n' + (process.env.ORIGIN ?? 'https://luna.illuminantrecs.com') + '/blog/' + data.identifier,
+	username: 'Illuminant Bot',
+	avatarURL: '',
+	embeds: [embed],
+	});
 	return data;
 }
 export async function deleteBlogPost(identifier: string): Promise<boolean> {

@@ -45,17 +45,18 @@ const config: runtime.GetPrismaClientConfig = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": null,
-        "value": "file:./dev.db"
+        "value": "postgresql://admin:password@localhost:5435/illuminant?schema=public"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/lib/server/prisma\"\n}\n\nmodel Post {\n  id        String   @id\n  title     String\n  createdAt DateTime @default(now())\n  content   String\n  author    String\n}\n\nmodel Draft {\n  id      String @id\n  title   String\n  content String\n  author  String\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n",
-  "inlineSchemaHash": "d89f0020f51ac334ec6e5c571f5a8ea9a9b88ac1fd39a1be18136e2cdeb6059b",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/lib/server/prisma\"\n}\n\nmodel Post {\n  id        String   @id\n  title     String\n  createdAt DateTime @default(now())\n  content   String\n  author    String\n}\n\nmodel Draft {\n  id      String @id\n  title   String\n  content String\n  author  String\n}\n\n// datasource db {\n//   provider = \"sqlite\"\n//   url      = \"file:./blog.db\"\n// }\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://admin:password@localhost:5435/illuminant?schema=public\"\n}\n",
+  "inlineSchemaHash": "ab90f4c27fc7792e8e7e4166d2f80c3f563d49d0dbb24eb2f77bc8e7a52a9b1c",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

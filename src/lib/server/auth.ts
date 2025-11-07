@@ -4,8 +4,8 @@ export function checkRequest(event: RequestEvent): boolean {
 	const passwordHeader = "X-Session-Passwd".toLowerCase();
 	const userHeader = "X-Session-User".toLowerCase();
 
-	const _username = import.meta.env.VITE_BLOG_USERNAME;
-	const _password = import.meta.env.VITE_BLOG_PASSWORD;
+	const _username = process.env.BLOG_USERNAME;
+	const _password = process.env.BLOG_PASSWORD;
 
 	let password = "";
 	let user = "";
