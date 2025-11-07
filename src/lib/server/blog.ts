@@ -59,7 +59,7 @@ export async function saveBlogPost(data: BlogPost): Promise<BlogPost> {
 	});
 	const webhookClient = new WebhookClient({ url: process.env.DISCORD_WEBHOOK_URL ?? "" }); 
 	webhookClient.send({
-	content: 'New blog post published: ' + data.title + '\n' + (process.env.ORIGIN ?? 'https://luna.illuminantrecs.com') + '/blog/' + data.identifier,
+	content: '@Blog Updates, new blog post published: `' + data.title + '`\n' + (process.env.ORIGIN ?? 'https://luna.illuminantrecs.com') + '/blog/' + data.identifier,
 	username: 'Illuminant Bot',
 	avatarURL: '',
 	});
