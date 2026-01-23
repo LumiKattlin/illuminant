@@ -25,6 +25,6 @@ vite.config.ts.timestamp-*
 /../generated/prisma
 /prisma/prod.db
 
-img/
+/img/
 *.db
 *.env

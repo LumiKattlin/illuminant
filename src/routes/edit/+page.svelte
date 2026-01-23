@@ -70,7 +70,7 @@
 					</a>
 					<a
 						title="Edit post"
-						href="/blog/edit/post?post={post.identifier}"
+						href="/edit/blog/post?post={post.identifier}"
 						class="material-symbols-outlined hover small-button"
 					>
 						edit

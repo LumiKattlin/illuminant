@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { type Artist } from '$lib/staffTypes';
+	import ArtistThumbnail from './artistThumbnail.svelte';
 
 	let props: {
 		artists: Artist[];
@@ -7,40 +8,25 @@
 </script>
 
 {#each props.artists as artist}
-	<a class="artist-card" href="/about?a={encodeURI(artist.id)}">
-		<div class="funny-image">
-			<img alt={artist.name} class="artist-logo" src={''} />
-		</div>
+	<a class="artist-card shadow" href="/about?a={encodeURI(artist.id)}">
+		<ArtistThumbnail {artist}></ArtistThumbnail>
 		<div class="artist-sub">
 			<h2 class="heading">
-				{artist}
+				{artist.name}
 			</h2>
-			<p>Some description</p>
+			<p>{artist.description}</p>
 		</div>
 	</a>
 {/each}
 
 <style lang="css">
 	.artist-card {
-		width: 400px;
-		height: 400px;
+		width: 300px;
+		height: 300px;
 		color: white;
 		text-decoration: none;
 		text-align: center;
-	}
-
-	.funny-image {
-		width: 400px;
-		height: 300px;
-		background: radial-gradient(red, purple);
 		border-radius: 15px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.artist-logo {
-		width: 150px;
 	}
 
 	.artist-sub {

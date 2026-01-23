@@ -25,9 +25,14 @@ model Draft {
 }
 
 model Artist {
-  id    String @id
-  name  String
-  about String
+  id      String  @id
+  name    String
+  about   String
+  bio     String  @default("")
+  color1  String  @default("#000000")
+  color2  String  @default("#000000")
+  image   String  @default("")
+  visible Boolean @default(false)
 }
 
 // datasource db {

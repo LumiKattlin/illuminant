@@ -7,7 +7,10 @@
 	let artistPromise = $state<Promise<Artist[]>>();
 
 	async function updateArtists() {
-		const found = await fetch('/staff/artists');
+		console.log('reload');
+		const found = await fetch('/staff/artists', {
+			headers: getSessionHeaders(getAuth()!)
+		});
 
 		return await found.json();
 	}
@@ -33,7 +36,16 @@
 	<button
 		class="link-button button"
 		onclick={() =>
-			updateArtist({ id: '', name: '', description: '', visible: false, color1: '', color2: '' })}
+			updateArtist({
+				id: '',
+				name: '',
+				description: '',
+				visible: false,
+				color1: '',
+				color2: '',
+				image: '',
+				bio: ''
+			})}
 	>
 		<span class="material-symbols-outlined"> add </span>
 		New Artist
@@ -46,7 +58,7 @@
 	{:then artists}
 		<div class="artist-list">
 			{#each artists as artist}
-				<ArtistEdit {artist}></ArtistEdit>
+				<ArtistEdit {artist} onDeleted={() => (artistPromise = updateArtists())}></ArtistEdit>
 			{/each}
 		</div>
 	{/await}
@@ -60,7 +72,6 @@
 
 	hr {
 		margin-top: 20px;
-		background-color: he;
 		margin-bottom: 20px;
 	}
 

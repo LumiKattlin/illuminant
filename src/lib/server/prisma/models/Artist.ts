@@ -27,18 +27,33 @@ export type ArtistMinAggregateOutputType = {
   id: string | null
   name: string | null
   about: string | null
+  bio: string | null
+  color1: string | null
+  color2: string | null
+  image: string | null
+  visible: boolean | null
 }
 
 export type ArtistMaxAggregateOutputType = {
   id: string | null
   name: string | null
   about: string | null
+  bio: string | null
+  color1: string | null
+  color2: string | null
+  image: string | null
+  visible: boolean | null
 }
 
 export type ArtistCountAggregateOutputType = {
   id: number
   name: number
   about: number
+  bio: number
+  color1: number
+  color2: number
+  image: number
+  visible: number
   _all: number
 }
 
@@ -47,18 +62,33 @@ export type ArtistMinAggregateInputType = {
   id?: true
   name?: true
   about?: true
+  bio?: true
+  color1?: true
+  color2?: true
+  image?: true
+  visible?: true
 }
 
 export type ArtistMaxAggregateInputType = {
   id?: true
   name?: true
   about?: true
+  bio?: true
+  color1?: true
+  color2?: true
+  image?: true
+  visible?: true
 }
 
 export type ArtistCountAggregateInputType = {
   id?: true
   name?: true
   about?: true
+  bio?: true
+  color1?: true
+  color2?: true
+  image?: true
+  visible?: true
   _all?: true
 }
 
@@ -138,6 +168,11 @@ export type ArtistGroupByOutputType = {
   id: string
   name: string
   about: string
+  bio: string
+  color1: string
+  color2: string
+  image: string
+  visible: boolean
   _count: ArtistCountAggregateOutputType | null
   _min: ArtistMinAggregateOutputType | null
   _max: ArtistMaxAggregateOutputType | null
@@ -165,12 +200,22 @@ export type ArtistWhereInput = {
   id?: Prisma.StringFilter<"Artist"> | string
   name?: Prisma.StringFilter<"Artist"> | string
   about?: Prisma.StringFilter<"Artist"> | string
+  bio?: Prisma.StringFilter<"Artist"> | string
+  color1?: Prisma.StringFilter<"Artist"> | string
+  color2?: Prisma.StringFilter<"Artist"> | string
+  image?: Prisma.StringFilter<"Artist"> | string
+  visible?: Prisma.BoolFilter<"Artist"> | boolean
 }
 
 export type ArtistOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   about?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  color1?: Prisma.SortOrder
+  color2?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  visible?: Prisma.SortOrder
 }
 
 export type ArtistWhereUniqueInput = Prisma.AtLeast<{
@@ -180,12 +225,22 @@ export type ArtistWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ArtistWhereInput | Prisma.ArtistWhereInput[]
   name?: Prisma.StringFilter<"Artist"> | string
   about?: Prisma.StringFilter<"Artist"> | string
+  bio?: Prisma.StringFilter<"Artist"> | string
+  color1?: Prisma.StringFilter<"Artist"> | string
+  color2?: Prisma.StringFilter<"Artist"> | string
+  image?: Prisma.StringFilter<"Artist"> | string
+  visible?: Prisma.BoolFilter<"Artist"> | boolean
 }, "id">
 
 export type ArtistOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   about?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  color1?: Prisma.SortOrder
+  color2?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  visible?: Prisma.SortOrder
   _count?: Prisma.ArtistCountOrderByAggregateInput
   _max?: Prisma.ArtistMaxOrderByAggregateInput
   _min?: Prisma.ArtistMinOrderByAggregateInput
@@ -198,66 +253,125 @@ export type ArtistScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Artist"> | string
   name?: Prisma.StringWithAggregatesFilter<"Artist"> | string
   about?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  bio?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  color1?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  color2?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  image?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  visible?: Prisma.BoolWithAggregatesFilter<"Artist"> | boolean
 }
 
 export type ArtistCreateInput = {
   id: string
   name: string
   about: string
+  bio?: string
+  color1?: string
+  color2?: string
+  image?: string
+  visible?: boolean
 }
 
 export type ArtistUncheckedCreateInput = {
   id: string
   name: string
   about: string
+  bio?: string
+  color1?: string
+  color2?: string
+  image?: string
+  visible?: boolean
 }
 
 export type ArtistUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   about?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  color1?: Prisma.StringFieldUpdateOperationsInput | string
+  color2?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ArtistUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   about?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  color1?: Prisma.StringFieldUpdateOperationsInput | string
+  color2?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ArtistCreateManyInput = {
   id: string
   name: string
   about: string
+  bio?: string
+  color1?: string
+  color2?: string
+  image?: string
+  visible?: boolean
 }
 
 export type ArtistUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   about?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  color1?: Prisma.StringFieldUpdateOperationsInput | string
+  color2?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ArtistUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   about?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  color1?: Prisma.StringFieldUpdateOperationsInput | string
+  color2?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ArtistCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   about?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  color1?: Prisma.SortOrder
+  color2?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  visible?: Prisma.SortOrder
 }
 
 export type ArtistMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   about?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  color1?: Prisma.SortOrder
+  color2?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  visible?: Prisma.SortOrder
 }
 
 export type ArtistMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   about?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  color1?: Prisma.SortOrder
+  color2?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  visible?: Prisma.SortOrder
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 
@@ -266,27 +380,47 @@ export type ArtistSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   name?: boolean
   about?: boolean
+  bio?: boolean
+  color1?: boolean
+  color2?: boolean
+  image?: boolean
+  visible?: boolean
 }, ExtArgs["result"]["artist"]>
 
 export type ArtistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   about?: boolean
+  bio?: boolean
+  color1?: boolean
+  color2?: boolean
+  image?: boolean
+  visible?: boolean
 }, ExtArgs["result"]["artist"]>
 
 export type ArtistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   about?: boolean
+  bio?: boolean
+  color1?: boolean
+  color2?: boolean
+  image?: boolean
+  visible?: boolean
 }, ExtArgs["result"]["artist"]>
 
 export type ArtistSelectScalar = {
   id?: boolean
   name?: boolean
   about?: boolean
+  bio?: boolean
+  color1?: boolean
+  color2?: boolean
+  image?: boolean
+  visible?: boolean
 }
 
-export type ArtistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "about", ExtArgs["result"]["artist"]>
+export type ArtistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "about" | "bio" | "color1" | "color2" | "image" | "visible", ExtArgs["result"]["artist"]>
 
 export type $ArtistPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Artist"
@@ -295,6 +429,11 @@ export type $ArtistPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     name: string
     about: string
+    bio: string
+    color1: string
+    color2: string
+    image: string
+    visible: boolean
   }, ExtArgs["result"]["artist"]>
   composites: {}
 }
@@ -721,6 +860,11 @@ export interface ArtistFieldRefs {
   readonly id: Prisma.FieldRef<"Artist", 'String'>
   readonly name: Prisma.FieldRef<"Artist", 'String'>
   readonly about: Prisma.FieldRef<"Artist", 'String'>
+  readonly bio: Prisma.FieldRef<"Artist", 'String'>
+  readonly color1: Prisma.FieldRef<"Artist", 'String'>
+  readonly color2: Prisma.FieldRef<"Artist", 'String'>
+  readonly image: Prisma.FieldRef<"Artist", 'String'>
+  readonly visible: Prisma.FieldRef<"Artist", 'Boolean'>
 }
     
 

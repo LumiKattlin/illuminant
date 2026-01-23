@@ -696,7 +696,12 @@ export type DraftScalarFieldEnum = (typeof DraftScalarFieldEnum)[keyof typeof Dr
 export const ArtistScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  about: 'about'
+  about: 'about',
+  bio: 'bio',
+  color1: 'color1',
+  color2: 'color2',
+  image: 'image',
+  visible: 'visible'
 } as const
 
 export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
@@ -749,6 +754,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

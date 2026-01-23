@@ -37,11 +37,11 @@
 				always a light worth chasing.
 			</p>
 		</div>
-		<div class="funny-image"></div>
+		<!-- <div class="funny-image"></div> -->
 	</div>
 
 	<div class="page-image-section page-section">
-		<div class="funny-image"></div>
+		<!-- <div class="funny-image"></div> -->
 
 		<div class="blog-text">
 			<h2 class="heading">Blog</h2>
@@ -113,7 +113,7 @@
 	}
 
 	.page-image-section {
-		display: grid;
+		/* display: grid; */
 		grid-template-columns: repeat(3, calc(33% - 10px));
 		gap: 20px;
 		@media (max-width: 1000px) {

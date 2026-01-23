@@ -27,7 +27,9 @@
 
 <style>
 	main {
+		box-sizing: border-box;
 		margin-top: 30px;
+		width: min(100%, 1200px);
 	}
 
 	.artist-card-container {
@@ -35,7 +37,8 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin-top: 80px;
+		margin-top: 40px;
+		margin-bottom: 40px;
 	}
 
 	h1 {
