@@ -24,6 +24,12 @@ model Draft {
   author  String
 }
 
+model Artist {
+  id    String @id
+  name  String
+  about String
+}
+
 // datasource db {
 //   provider = "sqlite"
 //   url      = "file:./blog.db"

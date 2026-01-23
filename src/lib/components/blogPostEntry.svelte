@@ -5,12 +5,12 @@
 	let { entry, hintText }: { entry: BlogPost; hintText: string } = $props();
 </script>
 
-<a class="blog-entry hover shadow" href="/blog/read?article={entry.identifier}">
+<a class="blog-entry page-section shadow" href="/blog/read?article={entry.identifier}">
 	<div class="blog-entry-heading">
-		<h3>{entry.title}</h3>
+		<h3 class="heading">{entry.title}</h3>
 		<span class="material-symbols-outlined"> open_in_new </span>
 	</div>
-	<h4>By {entry.author} &mdash; {new Date(entry.publishDate).toDateString()}</h4>
+	<h4 class="heading">By {entry.author} &mdash; {new Date(entry.publishDate).toDateString()}</h4>
 
 	<p>
 		{markdownText(
@@ -23,13 +23,12 @@
 <style>
 	.blog-entry {
 		padding: 10px;
-		border-radius: 5px;
 	}
 
 	.blog-entry > p {
 		overflow-y: hidden;
 		max-height: 8em;
-		line-height: 1.8em;
+		line-height: 1.5em;
 		margin-top: 10px;
 		width: 100%;
 	}
@@ -52,5 +51,16 @@
 			font-size: medium;
 			padding: 0.5em;
 		}
+	}
+
+	h3 {
+		margin-top: 5px;
+		margin-bottom: 10px;
+		font-size: x-large;
+	}
+	h4 {
+		margin-top: 0;
+		color: lightgrey;
+		font-size: 16px;
 	}
 </style>

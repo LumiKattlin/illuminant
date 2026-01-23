@@ -24,7 +24,7 @@
 			return response.json();
 		}
 
-		return Promise.reject(response.status + ": " + response.statusText);
+		return Promise.reject(response.status + ': ' + response.statusText);
 	}
 
 	function capitalizeFirstLetter(str: string) {
@@ -39,28 +39,38 @@
 	<title>Illuminant Blog&nbsp;&gt;&nbsp;{capitalizeFirstLetter(articleName)}</title>
 </svelte:head>
 
-{#await articlePromise}
-	Loading...
-{:then article}
-	<h1>
-		<a href="/blog">Illuminant Blog</a>&nbsp;&gt;&nbsp;{article?.title}
-	</h1>
-	<h4>By {article?.author} &mdash; {new Date(article?.publishDate ?? 0).toDateString()}</h4>
-	<hr />
-	<div>{@html marked(article?.content ?? '')}</div>
-{:catch err}
-	<h1>Illuminant Blog</h1>
+<main class="page-section">
+	{#await articlePromise}
+		Loading...
+	{:then article}
+		<h2 class="heading">
+			<a href="/blog">/ Illuminant Blog /</a>
+		</h2>
+		<h1 class="heading">
+			{article?.title}
+		</h1>
+		<h2 class="heading">By {article?.author} &mdash; {new Date(article?.publishDate ?? 0).toDateString()}</h2>
+		<hr />
+		<div>{@html marked(article?.content ?? '')}</div>
+	{:catch err}
+		<h1>Illuminant Blog</h1>
 
-	<div class="error shadow">
-		<div class="error-content">
-			<span class="material-symbols-outlined">error</span>
-			{err}
+		<div class="error shadow">
+			<div class="error-content">
+				<span class="material-symbols-outlined">error</span>
+				{err}
+			</div>
+			<a href="/blog">Return to blog page</a>
 		</div>
-		<a href="/blog">Return to blog page</a>
-	</div>
-{/await}
+	{/await}
+</main>
 
 <style>
+	main {
+		margin-top: 40px;
+		width: min(100%, 1000px);
+	}
+
 	.error {
 		margin-top: 40px;
 	}
@@ -71,6 +81,11 @@
 
 	h1 {
 		text-transform: capitalize;
+	}
+
+	h2 {
+		font-size: 17px;
+		color: lightgrey;
 	}
 
 	hr {

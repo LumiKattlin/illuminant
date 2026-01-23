@@ -26,3 +26,8 @@ export type Post = Prisma.PostModel
  * 
  */
 export type Draft = Prisma.DraftModel
+/**
+ * Model Artist
+ * 
+ */
+export type Artist = Prisma.ArtistModel

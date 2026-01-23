@@ -40,8 +40,8 @@ export { Prisma }
 
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node")
-path.join(process.cwd(), "src/lib/server/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node")
+path.join(process.cwd(), "src/lib/server/prisma/query_engine-windows.dll.node")
 
 /**
  * Model Post
@@ -53,3 +53,8 @@ export type Post = Prisma.PostModel
  * 
  */
 export type Draft = Prisma.DraftModel
+/**
+ * Model Artist
+ * 
+ */
+export type Artist = Prisma.ArtistModel

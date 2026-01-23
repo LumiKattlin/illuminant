@@ -31,7 +31,7 @@
 
 <div class="list-controls">
 	<input type="search" bind:value={searchQuery} class="shadow" placeholder="Search..." />
-	<select bind:value={sortMode} class="hover shadow">
+	<select bind:value={sortMode} class="link-button button-2 shadow">
 		<option value="latest">Latest</option>
 		<option value="name">Name A...Z</option>
 	</select>
@@ -76,6 +76,9 @@
 	}
 
 	.list-controls > select {
+		font-size: 17px;
+		padding: 15px;
+		box-sizing: border-box;
 		border: 2px solid var(--color-bg-2);
 		border-radius: 5px;
 		display: flex;

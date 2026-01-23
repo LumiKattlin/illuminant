@@ -62,7 +62,7 @@ export function getSessionHeaders(session: Session): Headers {
 
 export function redirectIfNoAuth(): boolean {
 	if (!hasBlogAuth()) {
-		window.location.href = "/blog/login?redirect=" +
+		window.location.href = "/login?redirect=" +
 			encodeURI(window.location.href);
 		return true;
 	}
@@ -75,7 +75,7 @@ export async function tryAuth(
 ): Promise<boolean> {
 	const request: AuthRequest = { username: user, password: password };
 	const authRequest = await fetch(
-		"/blog/login",
+		"/login",
 		{ method: "POST", body: JSON.stringify(request) },
 	);
 
@@ -84,15 +84,15 @@ export async function tryAuth(
 	if (!requestJson.authenticated) {
 		return false;
 	}
-	document.cookie = `auth_user=${user}; maxAge=86400; path=/blog`;
-	document.cookie = `auth_password=${password}; maxAge=86400; path=/blog`;
+	document.cookie = `auth_user=${user}; maxAge=86400; path=/`;
+	document.cookie = `auth_password=${password}; maxAge=86400; path=/`;
 
 	return true;
 }
 
 export async function logout() {
 	document.cookie =
-		"auth_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/blog";
+		"auth_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 	document.cookie =
-		"auth_password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/blog";
+		"auth_password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }

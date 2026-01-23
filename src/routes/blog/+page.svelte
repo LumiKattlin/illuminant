@@ -8,19 +8,24 @@
 	<title>Illuminant Blog</title>
 </svelte:head>
 
-<h1>Illuminant Blog</h1>
+<main>
+	<h1 class="heading">Illuminant Blog</h1>
 
-<Blog>
-	{#snippet postComponent(post: BlogPost)}
-		<BlogPostEntry entry={post} hintText="Read more..." />
-	{/snippet}
-</Blog>
+	<Blog>
+		{#snippet postComponent(post: BlogPost)}
+			<BlogPostEntry entry={post} hintText="Read more..." />
+		{/snippet}
+	</Blog>
 
-<footer>
-	<a href="/blog/rss">RSS Feed</a> &#9679; <a href="/">Main Page</a>
-</footer>
+	<footer>
+		<a href="/blog/rss">RSS Feed</a> &#9679; <a href="/">Main Page</a>
+	</footer>
+</main>
 
 <style>
+	main {
+		width: min(100%, 1000px);
+	}
 
 	footer {
 		margin: 10px;
@@ -28,9 +33,7 @@
 		color: var(--color-text-2);
 	}
 
-	
 	footer > a:hover {
 		text-decoration: underline;
 	}
-
 </style>

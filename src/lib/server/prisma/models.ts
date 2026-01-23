@@ -9,4 +9,5 @@
  */
 export type * from './models/Post'
 export type * from './models/Draft'
+export type * from './models/Artist'
 export type * from './commonInputTypes'

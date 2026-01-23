@@ -390,7 +390,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Post: 'Post',
-  Draft: 'Draft'
+  Draft: 'Draft',
+  Artist: 'Artist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "post" | "draft"
+    modelProps: "post" | "draft" | "artist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -558,6 +559,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Artist: {
+      payload: Prisma.$ArtistPayload<ExtArgs>
+      fields: Prisma.ArtistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ArtistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ArtistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        findFirst: {
+          args: Prisma.ArtistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ArtistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        findMany: {
+          args: Prisma.ArtistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+        }
+        create: {
+          args: Prisma.ArtistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        createMany: {
+          args: Prisma.ArtistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ArtistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+        }
+        delete: {
+          args: Prisma.ArtistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        update: {
+          args: Prisma.ArtistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        deleteMany: {
+          args: Prisma.ArtistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ArtistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ArtistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+        }
+        upsert: {
+          args: Prisma.ArtistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArtistPayload>
+        }
+        aggregate: {
+          args: Prisma.ArtistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArtist>
+        }
+        groupBy: {
+          args: Prisma.ArtistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArtistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ArtistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArtistCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -616,6 +691,15 @@ export const DraftScalarFieldEnum = {
 } as const
 
 export type DraftScalarFieldEnum = (typeof DraftScalarFieldEnum)[keyof typeof DraftScalarFieldEnum]
+
+
+export const ArtistScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  about: 'about'
+} as const
+
+export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -770,6 +854,7 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   post?: Prisma.PostOmit
   draft?: Prisma.DraftOmit
+  artist?: Prisma.ArtistOmit
 }
 
 /* Types for Logging */

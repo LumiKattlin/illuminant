@@ -2,6 +2,7 @@
 	import { hasBlogAuth } from '$lib/auth/blogAuthClient';
 	import { onMount } from 'svelte';
 	import '../app.css';
+	import { afterNavigate } from '$app/navigation';
 
 	let { children } = $props();
 
@@ -16,45 +17,35 @@
 	onMount(() => {
 		hasAuth = hasBlogAuth();
 	});
+
+	afterNavigate(() => {
+		// Navigate to top because svelte doesn't seem to reset this.
+		document.getElementById('content')?.scrollTo(0, 0);
+	});
 </script>
 
-<header>
-	<button onclick={toggleNav}>
-		<span class="material-symbols-outlined"> menu </span>
-	</button>
+<div id="content" class="content">
+	<header>
+		<nav>
+			<span class="nav-section nav-reverse">
+				<a class="heading" href="/artist-hub">Artists</a>
+				<a class="heading" href="/">About</a>
+			</span>
+			<a class="logo-container" href="/">
+				<img src="/assets/Illuminant/Logos/Illuminant Wordmark2.png" alt="emblem" />
+			</a>
+			<span class="nav-section">
+				<a class="heading" href="/staff-hub">A&amp;R</a>
+				<a class="heading" href="/blog">Blog</a>
+				{#if hasAuth}
+					<a class="heading edit-segment" href="/edit">Edit</a>
+					<a class="heading edit-segment" href="/logout">Log out</a>
+				{/if}
+			</span>
 
-	<a class="logo-container" href="/">
-		<img src="/assets/Illuminant/Logos/Illuminant Wordmark2.png" alt="emblem" />
-	</a>
+		</nav>
+	</header>
 
-	<nav>
-		<a href="/#about">About</a>
-		<a href="/#submission">Demo Submissions</a>
-		<a href="/#artists">Artists</a>
-		<a href="/#contact">Contact</a>
-		<hr />
-		<a href="/blog">Blog</a>
-		{#if hasAuth}
-			<a href="/blog/edit">Edit</a>
-			<a href="/blog/logout">Log out</a>
-		{/if}
-	</nav>
-</header>
-
-<nav id="nav" class="nav-hidden mobile-nav shadow">
-	<a href="/#about" onclick={toggleNav}>About</a>
-	<a href="/#submission" onclick={toggleNav}>Demo Submissions</a>
-	<a href="/#artists" onclick={toggleNav}>Artists</a>
-	<a href="/#contact" onclick={toggleNav}>Contact</a>
-	<hr />
-	<a href="/blog" onclick={toggleNav}>Blog</a>
-	{#if hasAuth}
-		<a href="/blog/edit" onclick={toggleNav}>Edit</a>
-		<a href="/blog/logout" onclick={toggleNav}>Log out</a>
-	{/if}
-</nav>
-
-<div class="content">
 	<div class="content-body">
 		<div class="container">
 			{@render children()}
@@ -74,7 +65,7 @@
 
 		box-shadow: 0px -5px 15px var(--color-shadow);
 
-		height: 64px;
+		height: 80px;
 		padding-left: 25px;
 
 		@media (max-width: 1400px) {
@@ -101,69 +92,40 @@
 		}
 	}
 
-	.mobile-nav {
-		@media (min-width: 1000px) {
-			height: 0;
-			visibility: collapse;
-		}
-		backdrop-filter: blur(10px);
-		background: rgba(113, 38, 236, 0.6);
-	}
-
 	header > nav {
-		height: 100%;
-		width: 100%;
 		display: flex;
 		align-items: center;
-		margin-right: auto;
 		gap: 50px;
-
-		@media (max-width: 1200px) {
-			gap: 30px;
-		}
-
 		@media (max-width: 1000px) {
 			display: none;
 		}
 	}
 
-	nav > hr {
+	.nav-section {
+		height: 100%;
+		width: 400px;
 		display: flex;
-		width: 1px;
-		height: 40px;
-		background-color: var(--color-text);
-		margin-right: -10px;
-		margin-left: -10px;
+		align-items: center;
+		gap: 50px;
 
-		@media (max-width: 1000px) {
-			margin-right: 5px;
-			margin-left: 5px;
-			width: auto;
-			height: 1px;
-			margin-top: -5px;
-			margin-bottom: -5px;
+		@media (max-width: 1200px) {
+			gap: 20px;
 		}
 	}
 
-	header > button {
-		transition: 0.2s;
-		border-radius: 100%;
-		width: 40px;
-		height: 40px;
-		padding-top: 3px;
-		display: none;
-		@media (max-width: 1000px) {
-			display: block;
-		}
+	.nav-reverse {
+		flex-direction: row-reverse;
 	}
 
-	header > button:hover {
-		background-color: var(--color-bg-3);
+	header {
+		display: flex;
+		justify-content: center;
 	}
 
-	nav > a {
+	nav > span > a {
 		transition: 0.2s;
-		color: var(--color-text);
+		color: white;
+		font-size: 28px;
 		text-decoration: underline dotted 1px var(--color-bg-2);
 
 		@media (max-width: 1000px) {
@@ -172,7 +134,7 @@
 		}
 	}
 
-	nav > a:hover {
+	nav > span > a:hover {
 		color: rgb(119, 170, 235);
 		text-decoration: underline solid 4px rgb(119, 170, 235);
 	}
@@ -200,28 +162,40 @@
 		}
 	}
 
-	.nav-hidden {
-		opacity: 0;
-		pointer-events: none;
-	}
-
 	.content {
 		width: 100%;
 		overflow-y: auto;
 		overflow-x: hidden;
 		scrollbar-color: var(--color-text) var(--color-bg);
-		height: calc(100vh - 64px);
+		height: calc(100vh);
 	}
 
 	.content-body {
 		width: 100%;
-		height: 100%;
+		background: linear-gradient(190deg, #1c0c38, #472e8a, #6b46d2, #a44ae7, #cc89f9);
 		display: flex;
 		justify-content: center;
 	}
 
+	.edit-segment {
+		font-size: 20px;
+	}
+
 	.container {
-		height: 100%;
-		width: min(100%, 1000px);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		overflow-y: auto;
+		min-height: calc(100vh - 80px);
+		width: min(100%, 1400px);
+		padding-left: 25px;
+		padding-right: 25px;
+
+		@media (max-width: 1000px) {
+			flex-direction: column;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
 	}
 </style>

@@ -57,12 +57,19 @@ export async function saveBlogPost(data: BlogPost): Promise<BlogPost> {
 			createdAt: data.publishDate,
 		},
 	});
-	const webhookClient = new WebhookClient({ url: process.env.DISCORD_WEBHOOK_URL ?? "" }); 
-	webhookClient.send({
-	content: '<@&1436334211798925435> new blog post published: `' + data.title + '`\n' + (process.env.ORIGIN ?? 'https://luna.illuminantrecs.com') + '/blog/read?article=' + data.identifier,
-	username: 'Illuminant Bot',
-	avatarURL: '',
-	});
+
+	const webhook = process.env.DISCORD_WEBHOOK_URL;
+
+	if (webhook) {
+		const webhookClient = new WebhookClient({ url: webhook });
+		webhookClient.send({
+			content: '<@&1436334211798925435> new blog post published: `'
+				+ data.title + '`\n'
+				+ (process.env.ORIGIN ?? 'https://luna.illuminantrecs.com') + '/blog/read?article=' + data.identifier,
+			username: 'Illuminant Bot',
+			avatarURL: '',
+		});
+	}
 	return data;
 }
 export async function deleteBlogPost(identifier: string): Promise<boolean> {
