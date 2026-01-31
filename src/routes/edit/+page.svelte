@@ -2,6 +2,8 @@
 	import Blog from '$lib/components/blog.svelte';
 	import { markdownText, type BlogPost } from '$lib/blogTypes';
 	import { getAuth, getSessionHeaders } from '$lib/auth/blogAuthClient';
+	import { uploadFile } from '$lib/uploadFile';
+	import { bounceInOut } from 'svelte/easing';
 
 	async function deletePost(post: BlogPost) {
 		if (!confirm(`Really delete the post ${post.title}?`)) {
@@ -19,7 +21,73 @@
 		}
 		window.location.reload();
 	}
+
+	let aboutImage = $state<FileList>();
+	let blogImage = $state<FileList>();
+	let imagesChanged = [false, false];
+
+	async function onImageChanged(index: number) {
+		imagesChanged[index] = true;
+	}
+
+	async function onImageSaved() {
+		let refresh = false;
+		if (imagesChanged[0] && aboutImage) {
+			console.log(aboutImage);
+			await uploadFile(aboutImage, (_) => {}, 'about');
+			refresh = true;
+		}
+		if (imagesChanged[1] && blogImage) {
+			await uploadFile(blogImage, (_) => {}, 'blog');
+			refresh = true;
+		}
+		window.location.reload();
+	}
 </script>
+
+<section class="page-section">
+	<h1>
+		<span class="material-symbols-outlined"> note </span>
+		Edit main page images
+	</h1>
+	<div>
+		<h2>About</h2>
+		<div class="image-section">
+			<div class="preview-image-wrapper">
+				<p>&lt;About text&gt;</p>
+				<img src="/img?id=about" alt="<About icon>" />
+			</div>
+
+			<div>
+				<h3>Change about image to</h3>
+				<input onchange={() => onImageChanged(0)} bind:files={aboutImage} type="file" />
+			</div>
+		</div>
+		<h2>Blog</h2>
+		<div class="image-section">
+			<div class="preview-image-wrapper">
+				<img src="/img?id=blog" alt="<Blog icon>" />
+				<p>
+					&lt;Blog text&gt;
+					<br />
+					<button> Open blog </button>
+					<br />
+					&lt;Blog post&gt;
+				</p>
+			</div>
+
+			<div>
+				<h3>Change blog image to</h3>
+				<input onchange={() => onImageChanged(1)} bind:files={blogImage} type="file" />
+			</div>
+		</div>
+	</div>
+	<div class="edit-controls reverse">
+		<button class="link-button button-2 shadow" onclick={onImageSaved}>
+			<span class="material-symbols-outlined"> check </span>Apply
+		</button>
+	</div>
+</section>
 
 <section class="page-section">
 	<h1>
@@ -31,7 +99,7 @@
 			<span class="material-symbols-outlined"> edit </span>Edit Artists
 		</a>
 
-		<a class="link-button button-2 shadow" href="/edit/blog/drafts">
+		<a class="link-button button-2 shadow" href="/edit/staff/staff">
 			<span class="material-symbols-outlined"> edit </span>Edit A&amp;R
 		</a>
 	</div>
@@ -106,6 +174,36 @@
 		align-items: center;
 		flex-wrap: wrap;
 		gap: 20px;
+	}
+
+	.preview-image-wrapper {
+		height: 300px;
+		width: 400px;
+		display: flex;
+		gap: 40px;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--color-bg);
+		border-radius: 5px;
+		border: 2px solid var(--color-bg-2);
+		padding: 10px;
+	}
+
+	.preview-image-wrapper > img {
+		width: 200px;
+	}
+
+	.image-section {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 50px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.reverse {
+		flex-direction: row-reverse;
 	}
 
 	.blog-entry {

@@ -1,4 +1,4 @@
-export interface Artist {
+export interface StaffMember {
 	id: string,
 	name: string,
 	description: string,
@@ -7,4 +7,5 @@ export interface Artist {
 	color1: string,
 	color2: string,
 	image: string,
+	isStaff: boolean,
 }

@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { type Artist } from '$lib/staffTypes';
+	import { type StaffMember } from '$lib/staffTypes';
 	import ArtistThumbnail from './artistThumbnail.svelte';
 
 	let props: {
-		artists: Artist[];
+		artists: StaffMember[];
 	} = $props();
 </script>
 
 {#each props.artists as artist}
-	<a class="artist-card shadow" href="/about?a={encodeURI(artist.id)}">
+	<a
+		class="artist-card shadow"
+		href="/about?a={encodeURI(artist.id)}{artist.isStaff ? '&staff=1' : ''}"
+	>
 		<ArtistThumbnail {artist}></ArtistThumbnail>
 		<div class="artist-sub">
 			<h2 class="heading">

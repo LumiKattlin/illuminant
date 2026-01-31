@@ -104,12 +104,12 @@ hr {
 }
 
 @font-face {
-	font-family: "Akira Expanded Demo";
-	src: url("/assets/Akira Expanded Demo.otf");
+	font-family: "Akira Super Bold";
+	src: url("/assets/Akira Super Bold.otf");
 }
 
 .heading {
-	font-family: "Akira Expanded Demo";
+	font-family: "Akira Super Bold";
 	font-weight: normal;
 }
 
@@ -158,6 +158,10 @@ blockquote {
 	padding-left: 1em;
 	margin: 5px;
 	font-style: italic;
+}
+
+textarea {
+	font-size: 15px;
 }
 
 ul>li {

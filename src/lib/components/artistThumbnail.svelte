@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Artist } from '$lib/staffTypes';
+	import type { StaffMember } from '$lib/staffTypes';
 
-	let { artist }: { artist: Artist } = $props();
+	let { artist }: { artist: StaffMember } = $props();
 </script>
 
 <div class="artist-image" style="background: radial-gradient({artist.color1}, {artist.color2})">
-	<img alt={artist.name} class="artist-logo" src="/staff/img?id={artist.image}" />
+	<img alt={artist.name} class="artist-logo" src="/img?id={artist.image}" />
 </div>
 
 <style>

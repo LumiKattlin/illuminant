@@ -21,7 +21,15 @@ export async function GET(event): Promise<Response> {
 		fs.mkdirSync(IMAGE_PATH);
 	}
 
-	const data = fs.readFileSync(IMAGE_PATH + "/" + id);
+	const path = IMAGE_PATH + "/" + id;
+
+	if (!fs.existsSync(path)) {
+		return new Response("", {
+			status: 200,
+		});
+	}
+
+	const data = fs.readFileSync(path);
 	// Determine the Content-Type from the file extension
 	const contentType = 'image/png';
 
@@ -39,12 +47,11 @@ export async function POST(event): Promise<Response> {
 		return error(401);
 	}
 
-	console.log(process.cwd());
 	if (!fs.existsSync(IMAGE_PATH)) {
 		fs.mkdirSync(IMAGE_PATH);
 	}
 
-	let id = uuidv4();
+	let id = event.url.searchParams.get("id") ?? uuidv4();
 
 	let responseBytes = await event.request.bytes();
 

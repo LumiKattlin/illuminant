@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Illuminant &mdash; Edit Blog</title>
+	<title>Illuminant &mdash; Edit</title>
 </svelte:head>
 
 {#if hasAuth}

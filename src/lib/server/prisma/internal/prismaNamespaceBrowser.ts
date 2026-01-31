@@ -50,7 +50,10 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   Post: 'Post',
   Draft: 'Draft',
-  Artist: 'Artist'
+  Artist: 'Artist',
+  Staff: 'Staff',
+  PageImage: 'PageImage',
+  PageText: 'PageText'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -102,6 +105,36 @@ export const ArtistScalarFieldEnum = {
 } as const
 
 export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
+
+
+export const StaffScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  about: 'about',
+  bio: 'bio',
+  color1: 'color1',
+  color2: 'color2',
+  image: 'image',
+  visible: 'visible'
+} as const
+
+export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const PageImageScalarFieldEnum = {
+  identifier: 'identifier',
+  aboutImage: 'aboutImage'
+} as const
+
+export type PageImageScalarFieldEnum = (typeof PageImageScalarFieldEnum)[keyof typeof PageImageScalarFieldEnum]
+
+
+export const PageTextScalarFieldEnum = {
+  identifier: 'identifier',
+  text: 'text'
+} as const
+
+export type PageTextScalarFieldEnum = (typeof PageTextScalarFieldEnum)[keyof typeof PageTextScalarFieldEnum]
 
 
 export const SortOrder = {

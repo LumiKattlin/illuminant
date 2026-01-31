@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getSessionHeaders, getAuth } from '$lib/auth/blogAuthClient';
-	import type { Artist } from '$lib/staffTypes';
+	import type { StaffMember } from '$lib/staffTypes';
+	import { uploadFile } from '$lib/uploadFile';
 
-	let props: { artist: Artist; onDeleted: () => void } = $props();
+	let props: { artist: StaffMember; onDeleted: () => void; endpoint: string } = $props();
 
 	let artistImage = $state<FileList>();
 	let loadedImage = $state('');
@@ -40,29 +41,14 @@
 		if (artistImage && imageChanged) {
 			imageChanged = false;
 
-			let reader = new FileReader();
-
-			reader.onload = async (ev) => {
-				let resultBuffer = ev.target?.result as ArrayBuffer;
-				let headers = getSessionHeaders(getAuth()!);
-
-				headers.append("Content-Type", "image/png");
-
-				let response = await fetch('/staff/img', {
-					method: 'POST',
-					headers: headers,
-					body: resultBuffer
-				});
-
-				artist.image = await response.text();
+			uploadFile(artistImage, (name) => {
+				artist.image = name;
 				artistImage = undefined;
 				save();
-			};
-
-			reader.readAsArrayBuffer(artistImage[0]);
+			});
 		}
 
-		await fetch('/staff/artists', {
+		await fetch(props.endpoint, {
 			method: 'POST',
 			headers: getSessionHeaders(getAuth()!),
 			body: JSON.stringify(artist)
@@ -71,11 +57,11 @@
 	}
 
 	async function deleteEntry() {
-		if (!confirm("Really delete this entry?")) {
+		if (!confirm('Really delete this entry?')) {
 			return;
 		}
 
-		await fetch('/staff/artists', {
+		await fetch(props.endpoint, {
 			method: 'DELETE',
 			headers: getSessionHeaders(getAuth()!),
 			body: JSON.stringify(artist)
@@ -114,7 +100,7 @@
 						{#if artistImage}
 							<img class="artist-logo" alt={artist.name} src={loadedImage} />
 						{:else if artist.image}
-							<img class="artist-logo" alt={artist.name} src="/staff/img?id={artist.image}" />
+							<img class="artist-logo" alt={artist.name} src="/img?id={artist.image}" />
 						{/if}
 					</div>
 					<div class="description">
@@ -170,6 +156,7 @@
 		flex-direction: row;
 		margin-top: 10px;
 		margin-bottom: 10px;
+		flex-wrap: wrap;
 	}
 
 	.description {
@@ -263,7 +250,7 @@
 
 	textarea {
 		box-sizing: border-box;
-		width: calc(100% - 300px);
+		width: calc(100% - 330px);
 		height: 400px;
 		resize: vertical;
 		padding: 10px;
@@ -271,6 +258,13 @@
 		background-color: var(--color-bg);
 		border: 0;
 		color: var(--color-text);
+
+		
+		@media (max-width: 1000px) {
+			width: 100%;
+			resize: none;
+		}
+
 	}
 
 	.visibility-area {

@@ -1,4 +1,40 @@
-<script>
+<script lang="ts">
+	import type { BlogPost } from '$lib/blogTypes';
+	import ArtistThumbnail from '$lib/components/artistThumbnail.svelte';
+	import BlogPostEntry from '$lib/components/blogPostEntry.svelte';
+	import type { StaffMember } from '$lib/staffTypes';
+	import { onMount } from 'svelte';
+
+	interface ImageData {
+		about: string;
+		blog: string;
+	}
+
+	let latestBlogPostPromise = $state<Promise<BlogPost> | undefined>(undefined);
+	let staffListPromise = $state<Promise<StaffMember[]>>();
+
+	onMount(() => {
+		latestBlogPostPromise = (async (): Promise<BlogPost> => {
+			let response = await fetch('/blog', {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if (response.ok) {
+				return ((await response.json()) as BlogPost[]).sort((a, b) => {
+					return a.publishDate == b.publishDate ? 0 : a.publishDate < b.publishDate ? 1 : -1;
+				})[0];
+			}
+
+			return Promise.reject(response.statusText);
+		})();
+
+		staffListPromise = (async () => {
+			let response = await fetch('/staff/all');
+			return (await response.json()) as StaffMember[];
+		})();
+	});
 </script>
 
 <svelte:head>
@@ -19,7 +55,7 @@
 </div>
 
 <main>
-	<div class="page-image-section page-section">
+	<section class="page-image-section page-section">
 		<div class="about-text">
 			<h2 class="heading">About us</h2>
 			<p>
@@ -37,11 +73,15 @@
 				always a light worth chasing.
 			</p>
 		</div>
-		<!-- <div class="funny-image"></div> -->
-	</div>
+		<div class="image-wrapper">
+			<img src="/img?id=about" alt="" />
+		</div>
+	</section>
 
-	<div class="page-image-section page-section">
-		<!-- <div class="funny-image"></div> -->
+	<section class="page-image-section page-section">
+		<div class="image-wrapper">
+			<img src="/img?id=blog" alt="" />
+		</div>
 
 		<div class="blog-text">
 			<h2 class="heading">Blog</h2>
@@ -50,10 +90,19 @@
 				<span class="material-symbols-outlined"> open_in_new </span>
 				View Blog
 			</a>
+			<div class="blog-post-wrapper">
+				{#await latestBlogPostPromise}
+					Loading
+				{:then post}
+					{#if post}
+						<BlogPostEntry entry={post} hintText="Read more..."></BlogPostEntry>
+					{/if}
+				{/await}
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<div class="page-section">
+	<section class="page-section">
 		<div class="artists-header">
 			<h2 class="heading">Artist and A&amp;R</h2>
 			<p>Artists who have released with us and our team.</p>
@@ -63,21 +112,73 @@
 			</div>
 		</div>
 		<div class="artist-list">
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
-			<div class="funny-image"></div>
+			{#await staffListPromise then staffList}
+				{#each staffList as staff}
+					<ArtistThumbnail artist={staff}></ArtistThumbnail>
+				{/each}
+			{/await}
 		</div>
-	</div>
+	</section>
 </main>
 
+<footer class="page-section contact-list">
+	<div class="contact-socials">
+		<a href="https://soundcloud.com/illuminantrecords">
+			<img
+				class="contact-element"
+				src="/assets/soundcloud.png"
+				alt="soundcloud"
+				title="soundcloud"
+			/>
+		</a>
+		<a href="https://bsky.app/profile/illuminantrecords.bsky.social">
+			<img class="contact-element" src="/assets/bluesky-icon.png" alt="bluesky" title="bluesky" />
+		</a>
+		<a href="https://www.instagram.com/illuminantrecordsus/">
+			<img
+				class="contact-element"
+				src="/assets/ig-instagram-icon.png"
+				alt="instagram"
+				title="instagram"
+			/>
+		</a>
+	</div>
+
+	<p>
+		Email us at <i>contact@illuminantrecs.com</i>
+	</p>
+	<div>
+		<a class="link-button button-2" href="mailto:contact@illuminantrecs.com">
+			<span class="material-symbols-outlined"> mail </span>
+			Send mail
+		</a>
+	</div>
+</footer>
+
 <style>
-	main {
+	.contact-element {
+		width: 64px;
+		height: 64px;
+	}
+
+	.contact-socials {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 40px;
+		flex-wrap: wrap;
+	}
+
+	.contact-list {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	main,
+	footer {
 		width: min(100%, 1200px);
 	}
 
@@ -112,8 +213,13 @@
 		}
 	}
 
+	.blog-post-wrapper {
+		margin-top: 20px;
+		margin-bottom: -20px;
+	}
+
 	.page-image-section {
-		/* display: grid; */
+		display: grid;
 		grid-template-columns: repeat(3, calc(33% - 10px));
 		gap: 20px;
 		@media (max-width: 1000px) {
@@ -136,20 +242,27 @@
 		margin-bottom: 40px;
 	}
 
-	.funny-image {
-		width: 100%;
-		height: 400px;
-		background: radial-gradient(red, purple);
-		border-radius: 15px;
+	.image-wrapper {
+		width: 350px;
+		height: 350px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		@media (max-width: 1000px) {
 			grid-row: -1;
 			grid-column: 1/4;
+			width: 100%;
+			height: 250px;
 		}
 	}
 
+	.image-wrapper > img {
+		width: 250px;
+	}
+
 	.artist-list {
-		height: 400px;
+		height: 250px;
 		width: 100%;
 		gap: 20px;
 		display: flex;
@@ -163,10 +276,6 @@
 		font-size: 40px;
 		margin-top: 5px;
 		margin-bottom: 15px;
-	}
-
-	.artist-list > div {
-		width: 300px;
 	}
 
 	.artists-header {

@@ -35,6 +35,27 @@ model Artist {
   visible Boolean @default(false)
 }
 
+model Staff {
+  id      String  @id
+  name    String
+  about   String
+  bio     String  @default("")
+  color1  String  @default("#000000")
+  color2  String  @default("#000000")
+  image   String  @default("")
+  visible Boolean @default(false)
+}
+
+model PageImage {
+  identifier String @id
+  aboutImage String @default("")
+}
+
+model PageText {
+  identifier String @id
+  text       String @default("")
+}
+
 // datasource db {
 //   provider = "sqlite"
 //   url      = "file:./blog.db"

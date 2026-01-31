@@ -1,10 +1,10 @@
 import type { StaffMember } from "$lib/staffTypes";
 import { checkRequest } from "$lib/server/auth";
-import { createArtist, getArtists, deleteArtist } from "$lib/server/artists";
+import { createStaffMember, getStaffMembers, deleteStaffMember } from "$lib/server/staff";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET(event) {
-	return json(await getArtists(!!checkRequest(event)));
+	return json(await getStaffMembers(!!checkRequest(event)));
 }
 
 export async function POST(event) {
@@ -14,7 +14,7 @@ export async function POST(event) {
 		return error(401);
 	}
 
-	return json(await createArtist(await event.request.json() as StaffMember));
+	return json(await createStaffMember(await event.request.json() as StaffMember));
 }
 
 export async function DELETE(event) {
@@ -22,7 +22,7 @@ export async function DELETE(event) {
 		return error(401);
 	}
 
-	await deleteArtist(await event.request.json() as StaffMember);
+	await deleteStaffMember(await event.request.json() as StaffMember);
 
 	return new Response();
 }

@@ -10,7 +10,7 @@
 
 	async function updateArtists() {
 		console.log('reload');
-		const found = await fetch('/staff/artists', {
+		const found = await fetch('/staff/staff', {
 			headers: getSessionHeaders(getAuth()!)
 		});
 
@@ -21,7 +21,7 @@
 
 	async function updateArtist(artist: StaffMember) {
 		artistPromise = (async () => {
-			await fetch('/staff/artists', {
+			await fetch('/staff/staff', {
 				method: 'POST',
 				headers: getSessionHeaders(getAuth()!),
 				body: JSON.stringify(artist)
@@ -33,13 +33,13 @@
 </script>
 
 <svelte:head>
-	<title>Illuminant &mdash; Edit Artists</title>
+	<title>Illuminant &mdash; Edit A&amp;R</title>
 </svelte:head>
 
 <main class="page-section">
-	<h1>Edit Artists</h1>
+	<h1>Edit A&amp;R</h1>
 
-	<StaffDescriptionEdit id="artists" />
+	<StaffDescriptionEdit id="staff"/>
 
 	<div class="controls-wrapper">
 		<button
@@ -54,11 +54,11 @@
 					color2: '',
 					image: '',
 					bio: '',
-					isStaff: false
+					isStaff: true
 				})}
 		>
 			<span class="material-symbols-outlined"> add </span>
-			New Artist
+			New Staff
 		</button>
 
 		<input placeholder="Search" bind:value={search} />
@@ -75,7 +75,7 @@
 					<ArtistEdit
 						{artist}
 						onDeleted={() => (artistPromise = updateArtists())}
-						endpoint="/staff/artists"
+						endpoint="/staff/staff"
 					></ArtistEdit>
 				{/if}
 			{/each}

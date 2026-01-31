@@ -1,28 +1,13 @@
 <script lang="ts">
-	import ArtistList from '$lib/components/artistList.svelte';
-	import type { Artist } from '$lib/staffTypes';
-	import { onMount } from 'svelte';
-
-	let artistPromise = $state<Promise<Artist[]>>();
-
-	onMount(async () => {
-		const found = fetch('/staff/artists');
-
-		artistPromise = (await found).json();
-	});
+	import StaffPage from '$lib/components/staffPage.svelte';
 </script>
 
-<main class="page-section">
-	<h1 class="heading">Artists</h1>
+<svelte:head>
+	<title>Illuminant Artists</title>
+</svelte:head>
 
-	<p>Some text here probably</p>
-	{#await artistPromise}
-		<h2>Loading...</h2>
-	{:then loadedArtists}
-		<div class="artist-card-container">
-			<ArtistList artists={loadedArtists ?? []} />
-		</div>
-	{/await}
+<main class="page-section">
+	<StaffPage title="Artists" id="artists" source="/staff/artists"></StaffPage>
 </main>
 
 <style>
@@ -30,18 +15,5 @@
 		box-sizing: border-box;
 		margin-top: 30px;
 		width: min(100%, 1200px);
-	}
-
-	.artist-card-container {
-		gap: 50px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-top: 40px;
-		margin-bottom: 40px;
-	}
-
-	h1 {
-		margin-top: 0;
 	}
 </style>

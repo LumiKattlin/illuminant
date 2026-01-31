@@ -58,3 +58,18 @@ export type Draft = Prisma.DraftModel
  * 
  */
 export type Artist = Prisma.ArtistModel
+/**
+ * Model Staff
+ * 
+ */
+export type Staff = Prisma.StaffModel
+/**
+ * Model PageImage
+ * 
+ */
+export type PageImage = Prisma.PageImageModel
+/**
+ * Model PageText
+ * 
+ */
+export type PageText = Prisma.PageTextModel

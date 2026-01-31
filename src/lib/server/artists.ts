@@ -1,8 +1,8 @@
 import { getPrismaClient } from "./prisma";
 import { v4 as uuidv4 } from "uuid";
-import type { Artist } from "$lib/staffTypes";
+import type { StaffMember } from "$lib/staffTypes";
 
-export async function createArtist(artist: Artist) {
+export async function createArtist(artist: StaffMember) {
 	const client = await getPrismaClient()
 
 	console.log("update: ", artist)
@@ -22,11 +22,13 @@ export async function createArtist(artist: Artist) {
 			bio: artist.bio,
 			image: artist.image,
 			visible: artist.visible,
+			color1: artist.color1,
+			color2: artist.color2,
 		},
 	})
 }
 
-export async function getArtists(includeHidden: boolean): Promise<Artist[]> {
+export async function getArtists(includeHidden: boolean): Promise<StaffMember[]> {
 	const client = await getPrismaClient();
 
 	let res = (await client.artist.findMany({
@@ -43,13 +45,14 @@ export async function getArtists(includeHidden: boolean): Promise<Artist[]> {
 			color2: elem.color2,
 			image: elem.image,
 			visible: elem.visible,
-		} as Artist
+			isStaff: false,
+		} as StaffMember
 	}).sort();
 
 	return res;
 }
 
-export async function deleteArtist(artist: Artist) {
+export async function deleteArtist(artist: StaffMember) {
 	const client = await getPrismaClient();
 
 	await client.artist.delete({
@@ -59,7 +62,7 @@ export async function deleteArtist(artist: Artist) {
 	})
 }
 
-export async function updateArtist(data: Artist) {
+export async function updateArtist(data: StaffMember) {
 	const client = await getPrismaClient();
 
 	await client.artist.update({

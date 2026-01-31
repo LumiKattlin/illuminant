@@ -391,7 +391,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Post: 'Post',
   Draft: 'Draft',
-  Artist: 'Artist'
+  Artist: 'Artist',
+  Staff: 'Staff',
+  PageImage: 'PageImage',
+  PageText: 'PageText'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "post" | "draft" | "artist"
+    modelProps: "post" | "draft" | "artist" | "staff" | "pageImage" | "pageText"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -633,6 +636,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Staff: {
+      payload: Prisma.$StaffPayload<ExtArgs>
+      fields: Prisma.StaffFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        findFirst: {
+          args: Prisma.StaffFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        findMany: {
+          args: Prisma.StaffFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        create: {
+          args: Prisma.StaffCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        createMany: {
+          args: Prisma.StaffCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        delete: {
+          args: Prisma.StaffDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        update: {
+          args: Prisma.StaffUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        aggregate: {
+          args: Prisma.StaffAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaff>
+        }
+        groupBy: {
+          args: Prisma.StaffGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffCountAggregateOutputType> | number
+        }
+      }
+    }
+    PageImage: {
+      payload: Prisma.$PageImagePayload<ExtArgs>
+      fields: Prisma.PageImageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PageImageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PageImageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        findFirst: {
+          args: Prisma.PageImageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PageImageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        findMany: {
+          args: Prisma.PageImageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>[]
+        }
+        create: {
+          args: Prisma.PageImageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        createMany: {
+          args: Prisma.PageImageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PageImageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>[]
+        }
+        delete: {
+          args: Prisma.PageImageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        update: {
+          args: Prisma.PageImageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        deleteMany: {
+          args: Prisma.PageImageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PageImageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PageImageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>[]
+        }
+        upsert: {
+          args: Prisma.PageImageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageImagePayload>
+        }
+        aggregate: {
+          args: Prisma.PageImageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePageImage>
+        }
+        groupBy: {
+          args: Prisma.PageImageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageImageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PageImageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageImageCountAggregateOutputType> | number
+        }
+      }
+    }
+    PageText: {
+      payload: Prisma.$PageTextPayload<ExtArgs>
+      fields: Prisma.PageTextFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PageTextFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PageTextFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        findFirst: {
+          args: Prisma.PageTextFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PageTextFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        findMany: {
+          args: Prisma.PageTextFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>[]
+        }
+        create: {
+          args: Prisma.PageTextCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        createMany: {
+          args: Prisma.PageTextCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PageTextCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>[]
+        }
+        delete: {
+          args: Prisma.PageTextDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        update: {
+          args: Prisma.PageTextUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        deleteMany: {
+          args: Prisma.PageTextDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PageTextUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PageTextUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>[]
+        }
+        upsert: {
+          args: Prisma.PageTextUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageTextPayload>
+        }
+        aggregate: {
+          args: Prisma.PageTextAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePageText>
+        }
+        groupBy: {
+          args: Prisma.PageTextGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageTextGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PageTextCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageTextCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -705,6 +930,36 @@ export const ArtistScalarFieldEnum = {
 } as const
 
 export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
+
+
+export const StaffScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  about: 'about',
+  bio: 'bio',
+  color1: 'color1',
+  color2: 'color2',
+  image: 'image',
+  visible: 'visible'
+} as const
+
+export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const PageImageScalarFieldEnum = {
+  identifier: 'identifier',
+  aboutImage: 'aboutImage'
+} as const
+
+export type PageImageScalarFieldEnum = (typeof PageImageScalarFieldEnum)[keyof typeof PageImageScalarFieldEnum]
+
+
+export const PageTextScalarFieldEnum = {
+  identifier: 'identifier',
+  text: 'text'
+} as const
+
+export type PageTextScalarFieldEnum = (typeof PageTextScalarFieldEnum)[keyof typeof PageTextScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -867,6 +1122,9 @@ export type GlobalOmitConfig = {
   post?: Prisma.PostOmit
   draft?: Prisma.DraftOmit
   artist?: Prisma.ArtistOmit
+  staff?: Prisma.StaffOmit
+  pageImage?: Prisma.PageImageOmit
+  pageText?: Prisma.PageTextOmit
 }
 
 /* Types for Logging */

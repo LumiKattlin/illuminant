@@ -10,4 +10,7 @@
 export type * from './models/Post'
 export type * from './models/Draft'
 export type * from './models/Artist'
+export type * from './models/Staff'
+export type * from './models/PageImage'
+export type * from './models/PageText'
 export type * from './commonInputTypes'

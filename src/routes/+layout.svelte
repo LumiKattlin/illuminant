@@ -26,13 +26,13 @@
 
 <div id="content" class="content">
 	<header>
-		<nav>
+		<nav class="desktop-nav">
 			<span class="nav-section nav-reverse">
 				<a class="heading" href="/artist-hub">Artists</a>
 				<a class="heading" href="/">About</a>
 			</span>
 			<a class="logo-container" href="/">
-				<img src="/assets/Illuminant/Logos/Illuminant Wordmark2.png" alt="emblem" />
+				<img src="/assets/Illuminant/Logos/Illuminant Wordmark2.png" alt="Illuminant" />
 			</a>
 			<span class="nav-section">
 				<a class="heading" href="/staff-hub">A&amp;R</a>
@@ -42,9 +42,30 @@
 					<a class="heading edit-segment" href="/logout">Log out</a>
 				{/if}
 			</span>
-
 		</nav>
+		<div class="mobile-header">
+			<button class="nav-button" onclick={toggleNav}>
+				<span class="material-symbols-outlined"> menu </span>
+			</button>
+			<a class="logo-container" href="/">
+				<img src="/assets/Illuminant/Logos/Illuminant Wordmark2.png" alt="Illuminant" />
+			</a>
+			<div class="nav-symmetry"></div>
+		</div>
 	</header>
+	<nav class="mobile-nav nav-hidden" id="nav">
+		<a class="heading" href="/">About</a>
+		<a class="heading" href="/artist-hub">Artists</a>
+		<a class="heading" href="/staff-hub">A&amp;R</a>
+		<a class="heading" href="/blog">Blog</a>
+		{#if hasAuth}
+			<hr />
+			<span>
+				<a class="heading edit-segment" href="/edit">Edit</a>
+				<a class="heading edit-segment" href="/logout">Log out</a>
+			</span>
+		{/if}
+	</nav>
 
 	<div class="content-body">
 		<div class="container">
@@ -60,18 +81,13 @@
 
 		display: flex;
 		gap: 48px;
-		justify-items: center;
+		justify-content: center;
 		align-items: center;
 
 		box-shadow: 0px -5px 15px var(--color-shadow);
 
+		width: 100%;
 		height: 80px;
-		padding-left: 25px;
-
-		@media (max-width: 1400px) {
-			padding-left: 10px;
-			padding-right: 10px;
-		}
 	}
 
 	.logo-container > img {
@@ -79,26 +95,70 @@
 		width: auto;
 	}
 
-	.logo-container {
-		width: fit-content;
-		@media (max-width: 1000px) {
-			position: absolute;
-			left: 30%;
-			width: 40%;
-			height: 60px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+	.mobile-header {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		@media (min-width: 1000px) {
+			display: none;
 		}
 	}
 
-	header > nav {
+	.logo-container {
+		width: fit-content;
+		height: 48px;
+	}
+
+	.desktop-nav {
 		display: flex;
 		align-items: center;
 		gap: 50px;
 		@media (max-width: 1000px) {
 			display: none;
 		}
+	}
+
+	hr {
+		width: 100%;
+	}
+
+	.nav-button {
+		width: 48px;
+		height: 48px;
+		border-radius: 24px;
+		border: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: auto;
+		margin-left: 5px;
+		background-color: var(--color-bg-2);
+		color: white;
+	}
+
+	.nav-symmetry {
+		width: 48px;
+		margin-left: auto;
+		margin-right: 5px;
+	}
+
+	.mobile-nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 10px;
+		height: 250px;
+		overflow: hidden;
+		transition: 0.2s;
+		@media (min-width: 1000px) {
+			display: none;
+		}
+	}
+
+	.nav-hidden {
+		height: 0;
 	}
 
 	.nav-section {
@@ -122,14 +182,16 @@
 		justify-content: center;
 	}
 
-	nav > span > a {
+	nav > span > a,
+	.mobile-nav > a {
 		transition: 0.2s;
+		box-sizing: border-box;
 		color: white;
 		font-size: 28px;
 		text-decoration: underline dotted 1px var(--color-bg-2);
 
 		@media (max-width: 1000px) {
-			font-size: large;
+			font-size: 28px;
 			margin-left: 10px;
 		}
 	}
@@ -137,29 +199,6 @@
 	nav > span > a:hover {
 		color: rgb(119, 170, 235);
 		text-decoration: underline solid 4px rgb(119, 170, 235);
-	}
-
-	nav {
-		@media (max-width: 1000px) {
-			opacity: 1;
-			transition: 0.2s;
-			border: 2px solid var(--color-bg-3);
-			border-radius: 10px;
-			backdrop-filter: blur(10px);
-
-			margin: 10px;
-			padding: 10px;
-
-			width: 225px;
-
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-			background-color: var(--color-bg-2);
-
-			position: absolute;
-			height: calc(100vh - 84px);
-		}
 	}
 
 	.content {
@@ -179,6 +218,11 @@
 
 	.edit-segment {
 		font-size: 20px;
+
+		@media (max-width: 1000px) {
+			font-size: 15px;
+			color: lightgray;
+		}
 	}
 
 	.container {

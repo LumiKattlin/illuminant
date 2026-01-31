@@ -22,6 +22,8 @@
 
 <style>
 	.blog-entry {
+		display: flex;
+		flex-direction: column;
 		padding: 10px;
 	}
 

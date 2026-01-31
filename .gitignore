@@ -28,3 +28,5 @@ vite.config.ts.timestamp-*
 /img/
 *.db
 *.env
+static/assets/Akira Bold.otf
+static/assets/Akira Super Bold.otf

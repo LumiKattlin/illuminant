@@ -16,24 +16,10 @@
 			<BlogPostEntry entry={post} hintText="Read more..." />
 		{/snippet}
 	</Blog>
-
-	<footer>
-		<a href="/blog/rss">RSS Feed</a> &#9679; <a href="/">Main Page</a>
-	</footer>
 </main>
 
 <style>
 	main {
 		width: min(100%, 1000px);
-	}
-
-	footer {
-		margin: 10px;
-		margin-top: 50px;
-		color: var(--color-text-2);
-	}
-
-	footer > a:hover {
-		text-decoration: underline;
 	}
 </style>

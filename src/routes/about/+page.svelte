@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ArtistThumbnail from '$lib/components/artistThumbnail.svelte';
-	import type { Artist } from '$lib/staffTypes';
+	import type { StaffMember } from '$lib/staffTypes';
 	import { onMount } from 'svelte';
 
-	let artistPromise = $state<Promise<Artist>>();
+	let artistPromise = $state<Promise<StaffMember>>();
 
 	let name: string | null = page.url.searchParams.get('a');
+	let isStaff = page.url.searchParams.get('staff');
 
 	onMount(async () => {
 		artistPromise = (async () => {
-			let response = fetch('staff/artists');
-			return (await ((await (await response).json()) as Promise<Artist[]>)).filter(
+			let response = fetch(isStaff ? '/staff/staff' : '/staff/artists');
+			return (await ((await (await response).json()) as Promise<StaffMember[]>)).filter(
 				(a) => a.id == name
 			)[0];
 		})();
@@ -27,7 +28,9 @@
 				<ArtistThumbnail artist={artist!}></ArtistThumbnail>
 			{/if}
 			<div class="heading-text">
-				<h3><a href="/artist-hub">/ Artists /</a></h3>
+				<h3>
+					<a href={isStaff ? '/staff-hub' : '/artist-hub'}>{isStaff ? '/ A&R /' : '/ Artists /'}</a>
+				</h3>
 				<h1>{artist?.name}</h1>
 				<h3>{artist?.description}</h3>
 			</div>
