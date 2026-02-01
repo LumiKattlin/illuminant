@@ -49,8 +49,8 @@
 	/>
 	<p>Illuminating the Underground &mdash; Fairly</p>
 	<nav>
-		<a class="link-button button" href="contact">Contact</a>
-		<a class="link-button button-2" href="demo">Demo submission</a>
+		<a class="link-button button" href="mailto:contact@illuminantrecs.com">Contact</a>
+		<a class="link-button button-2" href="https://docs.google.com/forms/d/e/1FAIpQLSemGgN9fS7W17uhddNIuF_BywFZQHdgyQutzu9Zytn1BQaI-g/viewform?usp=sharing&ouid=107946743770916223157">Demo submission</a>
 	</nav>
 </div>
 
