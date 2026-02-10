@@ -258,7 +258,8 @@
 	}
 
 	.image-wrapper > img {
-		height: 250px;
+		max-height: 250px;
+		max-width: 250px;
 	}
 
 	.artist-list {
