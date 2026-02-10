@@ -258,7 +258,7 @@
 	}
 
 	.image-wrapper > img {
-		width: 250px;
+		height: 250px;
 	}
 
 	.artist-list {
